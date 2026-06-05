@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 
+/* Class-based dark mode: `dark:` utilities apply only inside a `.dark` root,
+   so the theme can be toggled at runtime (default theme is set in index.html). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", "Inter", sans-serif;
@@ -27,6 +31,15 @@
 /* Custom extra utilities */
 .font-display {
   font-family: var(--font-display);
+}
+
+/* Base page background per theme (prevents a flash before React mounts and
+   keeps the area behind any overscroll on-theme). */
+html {
+  background-color: #fafafa;
+}
+html.dark {
+  background-color: #09090b;
 }
 
 /* ------------------------------------------------------------------ */

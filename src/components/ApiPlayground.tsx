@@ -56,19 +56,19 @@ export default function ApiPlayground() {
   };
 
   return (
-    <div className="bg-zinc-950 rounded-2xl border border-zinc-900 shadow-2xl p-4 sm:p-6">
+    <div className="bg-white border border-zinc-200 dark:bg-zinc-950 dark:border-zinc-900 rounded-2xl shadow-2xl p-4 sm:p-6">
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-900 pb-5 mb-6 gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-6 gap-4">
         <div>
-          <h2 className="text-fluid-h2 font-bold text-white font-sans flex items-center gap-2">
-            <Terminal className="h-5 w-5 text-sky-400" />
+          <h2 className="text-fluid-h2 font-bold text-zinc-900 dark:text-white font-sans flex items-center gap-2">
+            <Terminal className="h-5 w-5 text-sky-600 dark:text-sky-400" />
             <span>Interactive Endpoint Sandbox (API Playground)</span>
           </h2>
-          <p className="text-xs text-zinc-400 font-sans mt-0.5">Test real-time microservices simulations. Dispatch custom request payloads and monitor streaming server execution routes.</p>
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans mt-0.5">Test real-time microservices simulations. Dispatch custom request payloads and monitor streaming server execution routes.</p>
         </div>
 
         {/* Endpoints triggers */}
-        <div className="flex flex-row md:flex-wrap overflow-x-auto md:overflow-x-visible pb-1.5 md:pb-1 p-1 rounded-xl bg-zinc-900/60 border border-zinc-805 self-start md:self-auto max-w-full scrollbar-thin" aria-label="Simulated Endpoints">
+        <div className="flex flex-row md:flex-wrap overflow-x-auto md:overflow-x-visible pb-1.5 md:pb-1 p-1 rounded-xl bg-zinc-100 border border-zinc-200 dark:bg-zinc-900/60 dark:border-zinc-805 self-start md:self-auto max-w-full scrollbar-thin" aria-label="Simulated Endpoints">
           {API_TEST_CASES.map((tCase) => (
             <button
               key={tCase.id}
@@ -81,8 +81,8 @@ export default function ApiPlayground() {
               disabled={isSimulating}
               className={`cursor-pointer shrink-0 px-3 py-1.5 rounded-lg text-4xs font-mono font-medium transition-all ${
                 selectedCaseId === tCase.id
-                  ? 'bg-zinc-800 text-white border border-zinc-700'
-                  : 'text-zinc-500 hover:text-zinc-300 disabled:opacity-50'
+                  ? 'bg-white text-zinc-900 border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-300 disabled:opacity-50'
               }`}
             >
               {tCase.method} {tCase.path.replace('/api/v1', '')}
@@ -91,16 +91,16 @@ export default function ApiPlayground() {
         </div>
       </div>
 
-      <div className="bg-zinc-900/35 border border-zinc-900 rounded-xl p-4 mb-6">
-        <p className="text-xs text-zinc-300 font-sans">
+      <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-900/35 dark:border-zinc-900 rounded-xl p-4 mb-6">
+        <p className="text-xs text-zinc-700 dark:text-zinc-300 font-sans">
           <strong>Path Action:</strong> {currentCase.description}
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
         
-        {/* Left column: Request parameters */}
-        <div className="flex flex-col bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden min-h-[360px]">
+        {/* Left column: Request parameters (terminal-style, dark in both themes) */}
+        <div className="flex flex-col bg-zinc-950 border border-zinc-300 dark:border-zinc-900 rounded-xl overflow-hidden min-h-[360px]">
           <div className="flex items-center justify-between bg-zinc-900/80 px-4 py-2 border-b border-zinc-950 select-none">
             <span className="text-4xs font-mono font-medium text-zinc-400 uppercase">Incoming JSON Payloads</span>
             <div className="flex items-center space-x-2">
@@ -147,11 +147,11 @@ export default function ApiPlayground() {
           </div>
         </div>
 
-        {/* Right column: Live execution console and JSON Response */}
+        {/* Right column: Live execution console and JSON Response (terminal-style, dark in both themes) */}
         <div className="flex flex-col gap-4">
           
           {/* Active compiling server logs */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden flex flex-col h-[200px]">
+          <div className="bg-zinc-950 border border-zinc-300 dark:border-zinc-900 rounded-xl overflow-hidden flex flex-col h-[200px]">
             <div className="flex items-center justify-between bg-zinc-900 px-4 py-2 border-b border-zinc-950">
               <span className="text-4xs font-mono font-medium text-emerald-400">LOG_OUTPUT: STDOUT // server_host</span>
               <span className="relative flex h-2 w-2">
@@ -175,7 +175,7 @@ export default function ApiPlayground() {
           </div>
 
           {/* Response Payload mockup */}
-          <div className="bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden flex flex-col flex-1 min-h-[180px]">
+          <div className="bg-zinc-950 border border-zinc-300 dark:border-zinc-900 rounded-xl overflow-hidden flex flex-col flex-1 min-h-[180px]">
             <div className="flex items-center justify-between bg-zinc-900 px-4 py-3 border-b border-zinc-950">
               <span className="text-4xs font-mono font-medium text-zinc-400 uppercase">Received Response Json</span>
               {simulatedResponse && (

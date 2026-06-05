@@ -24,11 +24,11 @@ export default function SkillOrbit() {
   });
 
   return (
-    <div className="bg-zinc-950 p-4 sm:p-6 rounded-2xl border border-zinc-900 shadow-xl">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-900 pb-5 mb-6 gap-4">
+    <div className="bg-white border border-zinc-200 dark:bg-zinc-950 dark:border-zinc-900 p-4 sm:p-6 rounded-2xl shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-6 gap-4">
         <div>
-          <h2 className="text-fluid-h2 font-bold text-white font-sans">Technical Competencies & Systems Grip</h2>
-          <p className="text-xs text-zinc-400 font-sans mt-0.5">Explore granular details, production years, and design capabilities of my tech toolbelt.</p>
+          <h2 className="text-fluid-h2 font-bold text-zinc-900 dark:text-white font-sans">Technical Competencies & Systems Grip</h2>
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans mt-0.5">Explore granular details, production years, and design capabilities of my tech toolbelt.</p>
         </div>
 
         {/* Search bar */}
@@ -40,7 +40,7 @@ export default function SkillOrbit() {
             placeholder="Search competencies (e.g., Temporal)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg bg-zinc-900 border border-zinc-800 py-1.5 pl-9 pr-4 text-xs text-white placeholder-zinc-500 hover:border-zinc-700 focus:outline-none focus:border-emerald-500 font-mono transition-all"
+            className="w-full rounded-lg bg-zinc-50 border border-zinc-300 text-zinc-900 placeholder-zinc-400 hover:border-zinc-400 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white dark:placeholder-zinc-500 dark:hover:border-zinc-700 py-1.5 pl-9 pr-4 text-xs focus:outline-none focus:border-emerald-500 font-mono transition-all"
           />
         </div>
       </div>
@@ -57,8 +57,8 @@ export default function SkillOrbit() {
               onClick={() => setSelectedCategory(cat.id)}
               className={`cursor-pointer shrink-0 inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-2xs font-mono border transition-all ${
                 isActive
-                  ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
-                  : 'bg-zinc-900/40 border-zinc-800/60 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                  ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-700 dark:text-emerald-400'
+                  : 'bg-zinc-100 border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:bg-zinc-900/40 dark:border-zinc-800/60 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-200'
               }`}
             >
               <Icon className="h-3 w-3" />
@@ -73,17 +73,17 @@ export default function SkillOrbit() {
         {filteredSkills.map((skill: Skill) => (
           <div
             key={skill.name}
-            className="group flex flex-col justify-between border border-zinc-800/50 hover:border-zinc-700/80 bg-zinc-900/10 hover:bg-zinc-905/40 rounded-xl p-4 transition-all duration-150 shadow-inner"
+            className="group flex flex-col justify-between border border-zinc-200 hover:border-zinc-300 bg-zinc-50 hover:bg-zinc-100 dark:border-zinc-800/50 dark:hover:border-zinc-700/80 dark:bg-zinc-900/10 dark:hover:bg-zinc-905/40 rounded-xl p-4 transition-all duration-150 shadow-inner"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-semibold text-white tracking-tight">{skill.name}</span>
-                <span className="text-3xs font-mono text-zinc-500 px-2 py-0.5 rounded border border-zinc-800/80 bg-zinc-950/60">
+                <span className="text-xs font-semibold text-zinc-900 dark:text-white tracking-tight">{skill.name}</span>
+                <span className="text-3xs font-mono text-zinc-500 px-2 py-0.5 rounded border border-zinc-200 bg-white dark:border-zinc-800/80 dark:bg-zinc-950/60">
                   {skill.yearsOfExperience} years
                 </span>
               </div>
               
-              <p className="text-2xs text-zinc-400 leading-relaxed font-sans mb-4 min-h-[36px]">
+              <p className="text-2xs text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans mb-4 min-h-[36px]">
                 {skill.description}
               </p>
             </div>
@@ -92,9 +92,9 @@ export default function SkillOrbit() {
             <div className="mt-3">
               <div className="flex items-center justify-between font-mono text-3xs text-zinc-500 mb-1.5">
                 <span>SYSTEM DEPTH</span>
-                <span className="text-white font-medium">{skill.level}%</span>
+                <span className="text-zinc-900 dark:text-white font-medium">{skill.level}%</span>
               </div>
-              <div className="w-full h-1 bg-zinc-900 rounded-full overflow-hidden">
+              <div className="w-full h-1 bg-zinc-200 dark:bg-zinc-900 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-emerald-500/80 rounded-full transition-all duration-500"
                   style={{ width: `${skill.level}%` }}

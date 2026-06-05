@@ -41,19 +41,19 @@ export default function ArchitectureVisualizer() {
   };
 
   return (
-    <div className="bg-zinc-950 rounded-2xl border border-zinc-900 shadow-2xl p-4 sm:p-6">
+    <div className="bg-white border border-zinc-200 dark:bg-zinc-950 dark:border-zinc-900 rounded-2xl shadow-2xl p-4 sm:p-6">
       {/* Title block */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-900 pb-5 mb-6 gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-6 gap-4">
         <div>
-          <h2 className="text-fluid-h2 font-bold text-white font-sans flex items-center gap-2">
-            <Workflow className="h-5 w-5 text-emerald-400" />
+          <h2 className="text-fluid-h2 font-bold text-zinc-900 dark:text-white font-sans flex items-center gap-2">
+            <Workflow className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             <span>Interactive System Design Sandbox</span>
           </h2>
-          <p className="text-xs text-zinc-400 font-sans mt-0.5">Click components dynamically to analyze real production payloads, architecture code classes, and latency budgets.</p>
+          <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans mt-0.5">Click components dynamically to analyze real production payloads, architecture code classes, and latency budgets.</p>
         </div>
 
         {/* System toggles */}
-        <div className="flex bg-zinc-900/60 p-1 rounded-xl border border-zinc-800 self-start md:self-auto" aria-label="System Designs Selector">
+        <div className="flex bg-zinc-100 border border-zinc-200 dark:bg-zinc-900/60 dark:border-zinc-800 p-1 rounded-xl self-start md:self-auto" aria-label="System Designs Selector">
           {Object.values(SYSTEM_ARCHITECTURES).map((arch) => (
             <button
               key={arch.id}
@@ -68,8 +68,8 @@ export default function ArchitectureVisualizer() {
               }}
               className={`cursor-pointer px-3.5 py-1.5 rounded-lg text-2xs font-mono font-medium transition-all ${
                 selectedArchId === arch.id
-                  ? 'bg-zinc-805 text-white shadow'
-                  : 'text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-white text-zinc-900 shadow dark:bg-zinc-805 dark:text-white'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200'
               }`}
             >
               {arch.id === 'delight_desk' ? 'Delight Desk AI' : arch.id === 'bookmeet' ? 'Calendar Sync' : 'Web3 Identity'}
@@ -78,17 +78,17 @@ export default function ArchitectureVisualizer() {
         </div>
       </div>
 
-      <p className="text-xs text-zinc-300 font-sans bg-zinc-900/30 border border-zinc-900 rounded-xl p-4 mb-6 leading-relaxed">
+      <p className="text-xs text-zinc-700 bg-zinc-50 border border-zinc-200 dark:text-zinc-300 dark:bg-zinc-900/30 dark:border-zinc-900 font-sans rounded-xl p-4 mb-6 leading-relaxed">
         <strong>Overview:</strong> {currentArch.description}
       </p>
 
       {/* Systems KPIs summary widgets */}
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
         {currentArch.kpis.map((kpi, idx) => (
-          <div key={idx} className="flex items-center justify-between border border-zinc-900 bg-zinc-900/10 rounded-xl p-3 px-4">
+          <div key={idx} className="flex items-center justify-between border border-zinc-200 bg-zinc-50 dark:border-zinc-900 dark:bg-zinc-900/10 rounded-xl p-3 px-4">
             <span className="text-3xs font-mono text-zinc-500 uppercase">{kpi.label}</span>
             <span className={`text-xs font-mono font-bold ${
-              kpi.color === 'emerald' ? 'text-emerald-400' : kpi.color === 'blue' ? 'text-blue-400' : 'text-indigo-400'
+              kpi.color === 'emerald' ? 'text-emerald-600 dark:text-emerald-400' : kpi.color === 'blue' ? 'text-blue-600 dark:text-blue-400' : 'text-indigo-600 dark:text-indigo-400'
             }`}>{kpi.value}</span>
           </div>
         ))}
@@ -98,9 +98,9 @@ export default function ArchitectureVisualizer() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         
         {/* Diagram Canvas Box (Lg: Column span 7) */}
-        <div className="lg:col-span-7 border border-zinc-900 bg-zinc-950/40 rounded-xl min-h-[380px] p-4 relative overflow-x-auto select-none">
+        <div className="lg:col-span-7 border border-zinc-200 bg-zinc-50 dark:border-zinc-900 dark:bg-zinc-950/40 rounded-xl min-h-[380px] p-4 relative overflow-x-auto select-none">
           {/* Horizontal-scroll affordance on smaller screens */}
-          <div className="lg:hidden absolute top-2 right-2 z-30 inline-flex items-center gap-1 rounded-md border border-zinc-800 bg-zinc-900/80 px-2 py-1 text-4xs font-mono text-zinc-400 backdrop-blur-sm pointer-events-none">
+          <div className="lg:hidden absolute top-2 right-2 z-30 inline-flex items-center gap-1 rounded-md border border-zinc-300 bg-white/80 text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-400 px-2 py-1 text-4xs font-mono backdrop-blur-sm pointer-events-none">
             <span>Swipe to explore</span>
             <ArrowRight className="h-3 w-3" />
           </div>
@@ -195,11 +195,11 @@ export default function ArchitectureVisualizer() {
                     }}
                     className={`cursor-pointer absolute z-20 flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all ${
                       isSelected
-                        ? 'bg-zinc-900 border-emerald-500 shadow-lg text-emerald-400 ring-2 ring-emerald-500/10'
-                        : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                        ? 'bg-white border-emerald-500 text-emerald-700 ring-2 ring-emerald-500/20 dark:bg-zinc-900 dark:text-emerald-400 dark:ring-emerald-500/10 shadow-lg'
+                        : 'bg-white border-zinc-300 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 dark:bg-zinc-950 dark:border-zinc-800 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-white'
                     } w-36 h-18 text-center select-none active:scale-95`}
                   >
-                    <NodeIcon className={`h-4 w-4 mb-1 ${isSelected ? 'text-emerald-450' : 'text-zinc-500'}`} />
+                    <NodeIcon className={`h-4 w-4 mb-1 ${isSelected ? 'text-emerald-600 dark:text-emerald-450' : 'text-zinc-500'}`} />
                     <span className="text-3xs font-semibold tracking-tight leading-tight line-clamp-1">{node.label}</span>
                     <span className="text-[9px] font-mono text-zinc-500 uppercase mt-0.5 max-w-[110px] truncate">{node.tech}</span>
                   </button>
@@ -212,9 +212,9 @@ export default function ArchitectureVisualizer() {
               <button
                 id="arch-trigger-flow"
                 onClick={() => setIsFlowActive(!isFlowActive)}
-                className="cursor-pointer inline-flex items-center space-x-1.5 rounded-md border border-zinc-800 bg-zinc-900/60 px-2.5 py-1 text-4xs font-mono text-zinc-400 hover:text-zinc-200 transition-all"
+                className="cursor-pointer inline-flex items-center space-x-1.5 rounded-md border border-zinc-300 bg-white/80 text-zinc-600 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-400 dark:hover:text-zinc-200 px-2.5 py-1 text-4xs font-mono transition-all"
               >
-                <Play className={`h-3 w-3 ${isFlowActive ? 'text-emerald-400 fill-emerald-400/20' : 'text-zinc-500'}`} />
+                <Play className={`h-3 w-3 ${isFlowActive ? 'text-emerald-500 dark:text-emerald-400 fill-emerald-400/20' : 'text-zinc-500'}`} />
                 <span>{isFlowActive ? 'FLOW: ACTIVE' : 'FLOW: STATIC'}</span>
               </button>
             </div>
@@ -226,22 +226,22 @@ export default function ArchitectureVisualizer() {
         <div className="lg:col-span-5 flex flex-col gap-4">
           
           {/* Node metadata info block */}
-          <div className="border border-zinc-900 bg-zinc-900/10 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+          <div className="border border-zinc-200 bg-zinc-50 dark:border-zinc-900 dark:bg-zinc-900/10 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
             <div>
-              <div className="flex items-center space-x-2 border-b border-zinc-900 pb-3 mb-3">
-                <div className="p-1.5 rounded bg-zinc-950/60 border border-zinc-800 text-zinc-400">
+              <div className="flex items-center space-x-2 border-b border-zinc-200 dark:border-zinc-900 pb-3 mb-3">
+                <div className="p-1.5 rounded bg-white border border-zinc-200 dark:bg-zinc-950/60 dark:border-zinc-800">
                   {selectedNode && (() => {
                     const SelectedIcon = getNodeIcon(selectedNode.type);
-                    return <SelectedIcon className="h-4 w-4 text-emerald-400" />;
+                    return <SelectedIcon className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />;
                   })()}
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold text-white tracking-tight">{selectedNode?.label}</h3>
-                  <p className="text-3xs font-mono text-emerald-400/90 tracking-wider uppercase">{selectedNode?.tech}</p>
+                  <h3 className="text-xs font-bold text-zinc-900 dark:text-white tracking-tight">{selectedNode?.label}</h3>
+                  <p className="text-3xs font-mono text-emerald-600 dark:text-emerald-400/90 tracking-wider uppercase">{selectedNode?.tech}</p>
                 </div>
               </div>
 
-              <p className="text-2xs text-zinc-400 leading-normal font-sans">
+              <p className="text-2xs text-zinc-600 dark:text-zinc-400 leading-normal font-sans">
                 {selectedNode?.description}
               </p>
 
@@ -249,9 +249,9 @@ export default function ArchitectureVisualizer() {
               {selectedNode?.metrics && selectedNode.metrics.length > 0 && (
                 <div className="grid grid-cols-2 gap-3 mt-4">
                   {selectedNode.metrics.map((metric, index) => (
-                    <div key={index} className="rounded-lg bg-zinc-950/40 p-2 border border-zinc-900/40">
+                    <div key={index} className="rounded-lg bg-white border border-zinc-200 dark:bg-zinc-950/40 dark:border-zinc-900/40 p-2">
                       <span className="block text-4xs font-mono text-zinc-500 uppercase leading-none">{metric.label}</span>
-                      <span className="block text-xs font-mono font-semibold text-white mt-1 leading-none">{metric.value}</span>
+                      <span className="block text-xs font-mono font-semibold text-zinc-900 dark:text-white mt-1 leading-none">{metric.value}</span>
                     </div>
                   ))}
                 </div>
@@ -259,8 +259,8 @@ export default function ArchitectureVisualizer() {
             </div>
           </div>
 
-          {/* Technical code terminal mockup highlighting backend classes */}
-          <div className="flex-1 border border-zinc-900 bg-zinc-950 rounded-xl overflow-hidden flex flex-col min-h-[220px]">
+          {/* Technical code terminal mockup highlighting backend classes (intentionally dark in both themes) */}
+          <div className="flex-1 border border-zinc-300 dark:border-zinc-900 bg-zinc-950 rounded-xl overflow-hidden flex flex-col min-h-[220px]">
             <div className="flex items-center justify-between bg-zinc-900 px-4 py-2 border-b border-zinc-950">
               <div className="flex items-center space-x-1.5">
                 <span className="block h-2 w-2 rounded-full bg-red-500/80"></span>

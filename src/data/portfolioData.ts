@@ -6,7 +6,7 @@ export const PERSONAL_INFO = {
   email: "nabeel.asif362@gmail.com",
   linkedin: "https://www.linkedin.com/in/muhammad-nabeel-asif",
   location: "Lahore, Pakistan (Open to Remote / Hybrid / Relocation)",
-  bio: "Senior Backend Engineer with 4 years of experience architecting and building high-performance, fault-tolerant B2B and B2C products. I design real-time pipelines, implement stateful workflow orchestration, and integrate specialized AI agents. I look beyond 'making it work' to emphasize latency optimization, telemetry, transaction atomicity, and infrastructure automation. Known for bringing rigor to microservice environments and system design challenges.",
+  bio: "Senior Backend Engineer with 4 years of experience building high-performance, fault-tolerant systems. I design real-time pipelines, stateful workflow orchestration, and AI-agent integrations — with a focus on latency, reliability, and clean infrastructure.",
   stats: [
     { label: "Years of Experience", value: "4+" },
     { label: "Production Apps Shipped", value: "8+" },
