@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Extra-small breakpoint for the tightest phones (≈368px and up). */
+  --breakpoint-xs: 23rem;
+
+  /* Off-scale color shades used throughout the UI. Defining them here means
+     bg-/text-/border-/ring-/placeholder- utilities and opacity modifiers
+     (e.g. bg-zinc-905/40) all resolve correctly. */
+  --color-zinc-350: #c0c0c6;
+  --color-zinc-405: #9d9da6;
+  --color-zinc-650: #48484f;
+  --color-zinc-805: #242427;
+  --color-zinc-850: #202023;
+  --color-zinc-855: #1d1d20;
+  --color-zinc-905: #121214;
+  --color-emerald-450: #22c88d;
+  --color-emerald-505: #0fb27d;
+  --color-sky-505: #0ea0e2;
+}
+
+/* Custom extra utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ------------------------------------------------------------------ */
+/* Fluid type scale                                                    */
+/* Every size scales smoothly between a readable mobile floor and a    */
+/* comfortable desktop ceiling using clamp(min, preferred, max), so    */
+/* text is never too small on phones nor oversized on large monitors.  */
+/* ------------------------------------------------------------------ */
+
+/* Dense / mono / label micro sizes */
+.text-4xs {
+  font-size: clamp(0.625rem, 0.585rem + 0.18vw, 0.72rem);
+  line-height: 1.45;
+}
+
+.text-3xs {
+  font-size: clamp(0.6875rem, 0.645rem + 0.2vw, 0.8rem);
+  line-height: 1.45;
+}
+
+.text-2xs {
+  font-size: clamp(0.75rem, 0.705rem + 0.22vw, 0.875rem);
+  line-height: 1.5;
+}
+
+/* Display + heading + lead helpers used by the major sections */
+.text-fluid-display {
+  font-size: clamp(2rem, 1.32rem + 3.1vw, 3.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-h2 {
+  font-size: clamp(1.125rem, 1.02rem + 0.5vw, 1.5rem);
+  line-height: 1.2;
+}
+
+.text-fluid-h3 {
+  font-size: clamp(0.95rem, 0.9rem + 0.28vw, 1.15rem);
+  line-height: 1.25;
+}
+
+.text-fluid-lead {
+  font-size: clamp(0.95rem, 0.9rem + 0.34vw, 1.2rem);
+  line-height: 1.65;
+}
+
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+}
+
