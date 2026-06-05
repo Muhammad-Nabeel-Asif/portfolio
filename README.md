@@ -84,7 +84,6 @@ git push
 
 ## Configuration
 
-This is a fully static front-end — no backend or secrets are required to run or deploy it.
-An optional `GEMINI_API_KEY` placeholder exists in `.env.example` only because the project was
-scaffolded in AI Studio; the app does not call any external API at runtime (the API playground is
-simulated). Keep real secrets out of version control — `.env*` files are git-ignored.
+This is a fully static front-end — no backend, API keys, or environment variables are required
+to run or deploy it. The API playground is fully simulated and makes no external network calls.
+Any local `.env*` files are git-ignored.

@@ -3,10 +3,8 @@ import { Company, Skill, SystemArchitecture, ApiTestCase } from '../types';
 export const PERSONAL_INFO = {
   name: "Muhammad Nabeel Asif",
   title: "Senior Backend & Systems Engineer",
-  subtitle: "Specializing in Distributed Systems, Workflows, High-Throughput Pipelines & Agentic AI Architectures",
   email: "nabeel.asif362@gmail.com",
   linkedin: "https://www.linkedin.com/in/muhammad-nabeel-asif",
-  github: "https://github.com", // Placeholder - standard professional link
   location: "Lahore, Pakistan (Open to Remote / Hybrid / Relocation)",
   bio: "Senior Backend Engineer with 4 years of experience architecting and building high-performance, fault-tolerant B2B and B2C products. I design real-time pipelines, implement stateful workflow orchestration, and integrate specialized AI agents. I look beyond 'making it work' to emphasize latency optimization, telemetry, transaction atomicity, and infrastructure automation. Known for bringing rigor to microservice environments and system design challenges.",
   stats: [

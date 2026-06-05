@@ -6,18 +6,6 @@ export interface Skill {
   yearsOfExperience: number;
 }
 
-export interface Achievement {
-  text: string;
-  metric?: string;
-}
-
-export interface Metric {
-  label: string;
-  value: string;
-  change?: string;
-  icon: string;
-}
-
 export interface Project {
   id: string;
   title: string;
