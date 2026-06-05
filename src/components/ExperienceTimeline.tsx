@@ -84,11 +84,11 @@ export default function ExperienceTimeline() {
             </p>
 
             {/* Sub-tabs toggling Technical Contributions vs Key Projects */}
-            <div className="flex space-x-1 border-b border-zinc-900 pb-px mb-6">
+            <div className="flex space-x-1 border-b border-zinc-900 pb-px mb-6 overflow-x-auto scrollbar-thin">
               <button
                 id="exp-tab-contribs"
                 onClick={() => setActiveTab('contributions')}
-                className={`cursor-pointer pb-2.5 px-1 text-2xs font-mono font-medium transition-all duration-150 relative ${
+                className={`cursor-pointer shrink-0 whitespace-nowrap pb-2.5 px-1 text-2xs font-mono font-medium transition-all duration-150 relative ${
                   activeTab === 'contributions'
                     ? 'text-white border-b-2 border-emerald-500'
                     : 'text-zinc-500 hover:text-zinc-300'
@@ -100,7 +100,7 @@ export default function ExperienceTimeline() {
                 <button
                   id="exp-tab-projects"
                   onClick={() => setActiveTab('projects')}
-                  className={`cursor-pointer pb-2.5 px-4 text-2xs font-mono font-medium transition-all duration-150 relative ${
+                  className={`cursor-pointer shrink-0 whitespace-nowrap pb-2.5 px-4 text-2xs font-mono font-medium transition-all duration-150 relative ${
                     activeTab === 'projects'
                       ? 'text-white border-b-2 border-emerald-500'
                       : 'text-zinc-500 hover:text-zinc-300'

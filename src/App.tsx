@@ -16,7 +16,7 @@ export default function App() {
   const [activeView, setActiveView] = useState<string>('profile');
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-505 selection:text-black">
+    <div className="min-h-screen overflow-x-clip bg-zinc-950 text-white font-sans selection:bg-emerald-505 selection:text-black">
       {/* Navigation Header */}
       <Header activeView={activeView} setActiveView={setActiveView} />
 
