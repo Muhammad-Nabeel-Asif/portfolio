@@ -75,9 +75,24 @@
 }
 
 @media print {
+  /* Tight, professional page margins for the printed CV. */
+  @page {
+    margin: 14mm 16mm;
+  }
+
+  html,
   body {
     background-color: white !important;
     color: black !important;
+    /* Print accent colors (emerald headings/borders) instead of stripping them. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Avoid awkward page breaks inside experience entries. */
+  .print-cv section,
+  .print-cv li {
+    break-inside: avoid;
   }
 }
 

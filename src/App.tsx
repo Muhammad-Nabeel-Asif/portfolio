@@ -21,7 +21,7 @@ export default function App() {
       <Header activeView={activeView} setActiveView={setActiveView} />
 
       {/* Main layouts switcher */}
-      <main className="pb-16">
+      <main className="pb-16 print:hidden">
         {activeView === 'profile' && (
           <div className="space-y-8 sm:space-y-12">
             {/* Hero Section */}
@@ -57,7 +57,7 @@ export default function App() {
       </main>
 
       {/* Print-only clean resume layout */}
-      <div className="hidden print:block p-8 text-black bg-white">
+      <div className="print-cv hidden print:block p-8 text-black bg-white">
         <div className="border-b border-zinc-200 pb-5 mb-8">
           <h1 className="text-3xl font-extrabold tracking-tight">Muhammad Nabeel Asif</h1>
           <p className="text-sm font-semibold text-zinc-650 mt-1">Senior Backend Engineer</p>

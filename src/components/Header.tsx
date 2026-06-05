@@ -22,10 +22,7 @@ export default function Header({ activeView, setActiveView }: HeaderProps) {
           </div>
           <div className="min-w-0">
             <h1 className="truncate text-sm font-semibold tracking-tight text-white">{PERSONAL_INFO.name}</h1>
-            <p className="flex items-center text-2xs font-mono text-zinc-500">
-              <span className="mr-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="truncate">PORT: 3000 // production_env</span>
-            </p>
+            <p className="truncate text-2xs font-mono text-emerald-400/80">{PERSONAL_INFO.title}</p>
           </div>
         </div>
 
