@@ -29,7 +29,7 @@ export default function Hero() {
             {/* Core specialites tags */}
             <div className="mt-8 flex flex-wrap gap-2">
               <span className="inline-flex items-center space-x-1.5 rounded bg-white border border-zinc-200 text-zinc-700 px-2.5 py-1 text-xs font-mono">
-                <Server className="h-3 w-3 text-emerald-600" />
+                <Server className="h-3 w-3 text-emerald-700" />
                 <span>Distributed Systems</span>
               </span>
               <span className="inline-flex items-center space-x-1.5 rounded bg-white border border-zinc-200 text-zinc-700 px-2.5 py-1 text-xs font-mono">
@@ -58,7 +58,7 @@ export default function Hero() {
               <a
                 id="hero-contact"
                 href="#contact"
-                className="cursor-pointer inline-flex items-center justify-center rounded-lg bg-emerald-600 text-white hover:bg-emerald-500 px-5 py-3 text-sm font-medium transition-all active:scale-[0.98]"
+                className="cursor-pointer inline-flex items-center justify-center rounded-lg bg-emerald-700 text-white hover:bg-emerald-600 px-5 py-3 text-sm font-medium transition-all active:scale-[0.98]"
               >
                 Get in Touch
               </a>
@@ -69,10 +69,10 @@ export default function Hero() {
           <div className="w-full lg:w-[400px] bg-white border border-zinc-200 rounded-2xl p-5 sm:p-6 relative flex flex-col gap-5 sm:gap-6 backdrop-blur-sm shadow-xl">
             <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
               <div className="flex items-center space-x-2 font-mono text-3xs text-zinc-600">
-                <Cpu className="h-3.5 w-3.5 text-emerald-600" />
+                <Cpu className="h-3.5 w-3.5 text-emerald-700" />
                 <span>METRICS · SYSTEM_OVERVIEW</span>
               </div>
-              <span className="text-3xs font-mono text-emerald-600">READY</span>
+              <span className="text-3xs font-mono text-emerald-700">READY</span>
             </div>
 
             <div className="grid grid-cols-2 gap-4">

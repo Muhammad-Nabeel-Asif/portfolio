@@ -13,7 +13,7 @@ export default function ExperienceTimeline() {
     <div className="bg-white border border-zinc-200 rounded-2xl shadow-xl p-4 sm:p-6">
       <div className="border-b border-zinc-200 pb-5 mb-8">
         <h2 className="text-fluid-h2 font-bold text-zinc-900 font-sans flex items-center gap-2">
-          <Briefcase className="h-5 w-5 text-emerald-600" />
+          <Briefcase className="h-5 w-5 text-emerald-700" />
           <span>Professional Experience Timeline</span>
         </h2>
         <p className="text-xs text-zinc-600 font-sans mt-0.5">Filter work terms to audit technical contributions, corporate impact outcomes, and project portfolios.</p>
@@ -49,7 +49,7 @@ export default function ExperienceTimeline() {
                 
                 <h3 className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">{company.duration.split('(')[0].trim()}</h3>
                 <h4 className="text-xs font-bold text-zinc-900 mt-1 leading-tight truncate">{company.name}</h4>
-                <p className="text-3xs font-mono text-emerald-600 mt-1 truncate">{company.role}</p>
+                <p className="text-3xs font-mono text-emerald-700 mt-1 truncate">{company.role}</p>
               </button>
             );
           })}
@@ -63,7 +63,7 @@ export default function ExperienceTimeline() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-zinc-200 pb-4 mb-6 gap-3">
               <div>
                 <h3 className="text-base font-bold text-zinc-900 tracking-tight">{selectedCompany.role}</h3>
-                <p className="text-3xs font-mono text-emerald-600 mt-1 uppercase">{selectedCompany.name}</p>
+                <p className="text-3xs font-mono text-emerald-700 mt-1 uppercase">{selectedCompany.name}</p>
               </div>
 
               <div className="flex flex-col md:items-end text-3xs font-mono text-zinc-500 gap-1">
@@ -133,7 +133,7 @@ export default function ExperienceTimeline() {
                         <h4 className="text-xs font-bold text-zinc-900">{project.title}</h4>
                         <p className="text-3xs font-sans text-zinc-500 mt-1 leading-tight">{project.tagline}</p>
                       </div>
-                      <span className="text-4xs font-mono text-emerald-600 uppercase border border-emerald-500/15 rounded bg-emerald-500/5 px-2 py-0.5 self-start md:self-auto">
+                      <span className="text-4xs font-mono text-emerald-700 uppercase border border-emerald-500/15 rounded bg-emerald-500/5 px-2 py-0.5 self-start md:self-auto">
                         {project.role}
                       </span>
                     </div>
@@ -148,7 +148,7 @@ export default function ExperienceTimeline() {
                         <span className="block text-4xs font-mono text-zinc-500 uppercase tracking-widest mb-1.5">KPI OVERVIEW</span>
                         <div className="flex flex-wrap gap-x-4 gap-y-1">
                           {project.impactMetrics.map((kpi, idx) => (
-                            <span key={idx} className="inline-flex items-center text-3xs font-mono text-emerald-600">
+                            <span key={idx} className="inline-flex items-center text-3xs font-mono text-emerald-700">
                               <ChevronRight className="h-3 w-3 shrink-0" />
                               {kpi}
                             </span>
@@ -174,7 +174,7 @@ export default function ExperienceTimeline() {
 
           {/* Bottom stack technologies tag browser */}
           <div className="border-t border-zinc-200 pt-5 mt-8">
-            <h5 className="text-3xs font-mono text-zinc-500 uppercase tracking-wider mb-2.5">STACK & COMPILER ENVIRONMENT</h5>
+            <h4 className="text-3xs font-mono text-zinc-500 uppercase tracking-wider mb-2.5">STACK & COMPILER ENVIRONMENT</h4>
             <div className="flex flex-wrap gap-1.5">
               {selectedCompany.coreTech.map((tech) => (
                 <span key={tech} className="text-4xs font-mono text-emerald-700 border border-zinc-200 bg-white rounded-lg px-2 py-1 select-all">

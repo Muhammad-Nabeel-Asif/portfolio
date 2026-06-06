@@ -8,12 +8,12 @@ export default function Header() {
         
         {/* Logo and metadata info */}
         <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-50 text-emerald-600 sm:h-10 sm:w-10">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-50 text-emerald-700 sm:h-10 sm:w-10">
             <Terminal className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
           </div>
           <div className="min-w-0">
-            <h1 className="truncate text-sm font-semibold tracking-tight text-zinc-900">{PERSONAL_INFO.name}</h1>
-            <p className="truncate text-2xs font-mono text-emerald-600">{PERSONAL_INFO.title}</p>
+            <span className="block truncate text-sm font-semibold tracking-tight text-zinc-900">{PERSONAL_INFO.name}</span>
+            <p className="truncate text-2xs font-mono text-emerald-700">{PERSONAL_INFO.title}</p>
           </div>
         </div>
 

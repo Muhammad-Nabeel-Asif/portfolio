@@ -39,7 +39,7 @@ export default function ContactPortal() {
     <div className="bg-white border border-zinc-200 rounded-2xl shadow-xl p-4 sm:p-6">
       <div className="border-b border-zinc-200 pb-5 mb-8">
         <h2 className="text-fluid-h2 font-bold text-zinc-900 font-sans flex items-center gap-2">
-          <Mail className="h-5 w-5 text-emerald-600" />
+          <Mail className="h-5 w-5 text-emerald-700" />
           <span>Gateway & Interview Dispatch Portal</span>
         </h2>
         <p className="text-xs text-zinc-600 font-sans mt-0.5">Submit immediate job specs or coordination requests directly to Nabeel's delivery logs.</p>
@@ -62,7 +62,7 @@ export default function ContactPortal() {
                 href={`mailto:${PERSONAL_INFO.email}`}
                 className="flex items-center space-x-3.5 p-3 rounded-xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-700 transition-all"
               >
-                <Mail className="h-4.5 w-4.5 text-emerald-600" />
+                <Mail className="h-4.5 w-4.5 text-emerald-700" />
                 <div className="flex-1 min-w-0">
                   <span className="block text-4xs font-mono text-zinc-500 uppercase leading-none">Primary Direct Email</span>
                   <span className="block text-3xs font-mono mt-1 text-zinc-900 truncate">{PERSONAL_INFO.email}</span>
@@ -110,7 +110,7 @@ export default function ContactPortal() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-zinc-200 text-4xs font-mono text-zinc-500 flex items-center gap-1.5 leading-snug">
-            <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+            <Sparkles className="h-3.5 w-3.5 text-emerald-700" />
             <span>Open for contract system audits, architectural scoping blueprints, and permanent senior positions.</span>
           </div>
         </div>
@@ -195,8 +195,8 @@ export default function ContactPortal() {
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="min-h-[22px]">
               {submitSuccess && (
-                <div className="flex items-center space-x-2 text-3xs font-mono text-emerald-600">
-                  <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600 shrink-0" />
+                <div className="flex items-center space-x-2 text-3xs font-mono text-emerald-700">
+                  <CheckCircle2 className="h-4.5 w-4.5 text-emerald-700 shrink-0" />
                   <span>TRANSACTION LOGGED: Message packet successfully queued for dispatch!</span>
                 </div>
               )}
@@ -206,7 +206,7 @@ export default function ContactPortal() {
               id="contact-dispatch-btn"
               type="submit"
               disabled={isSubmitting}
-              className="cursor-pointer inline-flex items-center space-x-2.5 bg-emerald-600 hover:bg-emerald-500 text-white disabled:bg-zinc-300 disabled:text-zinc-400 disabled:cursor-not-allowed justify-center text-xs font-semibold px-6 py-2.5 rounded-lg transition-all active:scale-[0.98] self-end"
+              className="cursor-pointer inline-flex items-center space-x-2.5 bg-emerald-700 hover:bg-emerald-600 text-white disabled:bg-zinc-300 disabled:text-zinc-400 disabled:cursor-not-allowed justify-center text-xs font-semibold px-6 py-2.5 rounded-lg transition-all active:scale-[0.98] self-end"
             >
               <Send className="h-3.5 w-3.5" />
               <span>{isSubmitting ? 'Dispatching Message...' : 'Send Message Gateway'}</span>
