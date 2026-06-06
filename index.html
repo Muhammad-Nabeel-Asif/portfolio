@@ -1,22 +1,9 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#09090b" />
-    <!-- Apply the saved theme before paint to avoid a flash of the wrong theme.
-         Defaults to dark when no preference has been stored. -->
-    <script>
-      (function () {
-        try {
-          var stored = localStorage.getItem('theme');
-          var isLight = stored === 'light';
-          document.documentElement.classList.toggle('dark', !isLight);
-          var meta = document.querySelector('meta[name="theme-color"]');
-          if (meta) meta.setAttribute('content', isLight ? '#fafafa' : '#09090b');
-        } catch (e) {}
-      })();
-    </script>
+    <meta name="theme-color" content="#fafafa" />
     <meta
       name="description"
       content="Portfolio of Muhammad Nabeel Asif, Senior Backend Engineer specializing in distributed systems, workflow orchestration, high-throughput pipelines, and Agentic AI architectures."

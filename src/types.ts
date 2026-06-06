@@ -15,7 +15,6 @@ export interface Project {
   role: string;
   impactMetrics: string[];
   achievements: string[];
-  systemArchitectureId?: string;
 }
 
 export interface Company {
@@ -27,44 +26,4 @@ export interface Company {
   keyProjects: Project[];
   coreTech: string[];
   achievements: string[];
-}
-
-// Architecture visualizer types
-export interface ArchNode {
-  id: string;
-  label: string;
-  type: 'trigger' | 'queue' | 'orchestration' | 'logic' | 'storage' | 'integration' | 'actor';
-  description: string;
-  tech: string;
-  coords: { x: number; y: number }; // Percentage coords (0-100) for grid positioning
-  metrics?: { label: string; value: string }[];
-  codeSnippet?: string;
-}
-
-export interface ArchEdge {
-  from: string;
-  to: string;
-  label?: string;
-  animated?: boolean;
-  type?: 'sync' | 'async' | 'event';
-}
-
-export interface SystemArchitecture {
-  id: string;
-  name: string;
-  description: string;
-  nodes: ArchNode[];
-  edges: ArchEdge[];
-  kpis: { label: string; value: string; color: string }[];
-}
-
-// API simulator types
-export interface ApiTestCase {
-  id: string;
-  method: 'POST' | 'GET' | 'PUT' | 'DELETE';
-  path: string;
-  description: string;
-  requestBody?: string;
-  expectedResponse: string;
-  logs: string[];
 }

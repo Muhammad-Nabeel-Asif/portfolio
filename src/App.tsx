@@ -3,57 +3,42 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import SkillOrbit from './components/SkillOrbit';
-import ArchitectureVisualizer from './components/ArchitectureVisualizer';
-import ApiPlayground from './components/ApiPlayground';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import ContactPortal from './components/ContactPortal';
 
 export default function App() {
-  const [activeView, setActiveView] = useState<string>('profile');
-
   return (
-    <div className="min-h-screen overflow-x-clip bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-white font-sans selection:bg-emerald-505 selection:text-black">
+    <div className="min-h-screen overflow-x-clip bg-zinc-50 text-zinc-900 font-sans selection:bg-emerald-505 selection:text-black">
       {/* Navigation Header */}
-      <Header activeView={activeView} setActiveView={setActiveView} />
+      <Header />
 
-      {/* Main layouts switcher */}
+      {/* Main content */}
       <main className="pb-16 print:hidden">
-        {activeView === 'profile' && (
-          <div className="space-y-8 sm:space-y-12">
-            {/* Hero Section */}
-            <Hero setActiveView={setActiveView} />
+        <div className="space-y-8 sm:space-y-12">
+          {/* Hero Section */}
+          <Hero />
 
-            {/* Side-by-Side: Experience Vertical List & Skill Category blocks */}
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 gap-8 sm:gap-10">
-                {/* Detailed Careers list */}
+          {/* Experience, skills, and contact */}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-8 sm:gap-10">
+              {/* Detailed Careers list */}
+              <div id="experience" className="scroll-mt-24">
                 <ExperienceTimeline />
+              </div>
 
-                {/* Granular interactive tech inventory list */}
-                <SkillOrbit />
+              {/* Granular interactive tech inventory list */}
+              <SkillOrbit />
 
-                {/* Gateway for recruiters */}
+              {/* Gateway for recruiters */}
+              <div id="contact" className="scroll-mt-24">
                 <ContactPortal />
               </div>
             </div>
           </div>
-        )}
-
-        {activeView === 'architecture' && (
-          <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 sm:pt-10 lg:px-8">
-            <ArchitectureVisualizer />
-          </div>
-        )}
-
-        {activeView === 'api' && (
-          <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 sm:pt-10 lg:px-8">
-            <ApiPlayground />
-          </div>
-        )}
+        </div>
       </main>
 
       {/* Print-only clean resume layout */}
@@ -118,4 +103,3 @@ export default function App() {
     </div>
   );
 }
-
