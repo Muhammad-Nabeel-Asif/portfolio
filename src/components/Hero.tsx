@@ -70,7 +70,7 @@ export default function Hero() {
             <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
               <div className="flex items-center space-x-2 font-mono text-3xs text-zinc-600">
                 <Cpu className="h-3.5 w-3.5 text-emerald-600" />
-                <span>METRICS // SYSTEM_OVERVIEW</span>
+                <span>METRICS · SYSTEM_OVERVIEW</span>
               </div>
               <span className="text-3xs font-mono text-emerald-600">READY</span>
             </div>

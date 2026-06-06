@@ -1,4 +1,4 @@
-import { Mail, Linkedin, Terminal } from 'lucide-react';
+import { Mail, Linkedin, Github, Terminal } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export default function Header() {
@@ -19,6 +19,17 @@ export default function Header() {
 
         {/* Contact actions */}
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <a
+            id="github-link"
+            href={PERSONAL_INFO.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            referrerPolicy="no-referrer"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-300 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-all"
+            title="GitHub Profile"
+          >
+            <Github className="h-4 w-4" />
+          </a>
           <a
             id="linkedin-link"
             href={PERSONAL_INFO.linkedin}

@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { Mail, Linkedin, MapPin, Send, CheckCircle2, Sparkles } from 'lucide-react';
+import { Mail, Linkedin, Github, MapPin, Send, CheckCircle2, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export default function ContactPortal() {
@@ -81,6 +81,21 @@ export default function ContactPortal() {
                 <div className="flex-1 min-w-0">
                   <span className="block text-4xs font-mono text-zinc-500 uppercase leading-none">Professional LinkedIn</span>
                   <span className="block text-3xs font-mono mt-1 text-zinc-900 truncate">muhammad-nabeel-asif</span>
+                </div>
+              </a>
+
+              <a
+                id="contact-github-link"
+                href={PERSONAL_INFO.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                referrerPolicy="no-referrer"
+                className="flex items-center space-x-3.5 p-3 rounded-xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-700 transition-all"
+              >
+                <Github className="h-4.5 w-4.5 text-zinc-900" />
+                <div className="flex-1 min-w-0">
+                  <span className="block text-4xs font-mono text-zinc-500 uppercase leading-none">Source / GitHub</span>
+                  <span className="block text-3xs font-mono mt-1 text-zinc-900 truncate">Muhammad-Nabeel-Asif</span>
                 </div>
               </a>
 

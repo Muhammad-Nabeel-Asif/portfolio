@@ -5,6 +5,7 @@ export const PERSONAL_INFO = {
   title: "Senior Backend & Systems Engineer",
   email: "nabeel.asif362@gmail.com",
   linkedin: "https://www.linkedin.com/in/muhammad-nabeel-asif",
+  github: "https://github.com/Muhammad-Nabeel-Asif",
   location: "Lahore, Pakistan (Open to Remote / Hybrid / Relocation)",
   bio: "Senior Backend Engineer with 4 years of experience building high-performance, fault-tolerant systems. I design real-time pipelines, stateful workflow orchestration, and AI-agent integrations — with a focus on latency, reliability, and clean infrastructure.",
   stats: [
