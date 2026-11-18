@@ -31,6 +31,12 @@ Either can be set from the environment instead:
 SITE_URL=https://example.github.io BASE_PATH=/portfolio/ npm run build
 ```
 
+## Deployment
+
+Every push to `main` is built and published to GitHub Pages by
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). The site is served at
+https://nabeelasif.cloud; the domain's DNS points at GitHub Pages.
+
 ## Change the content
 
 Everything on the page comes from `src/content/`. No component needs to change.
@@ -64,6 +70,7 @@ src/layouts/Base.astro head, metadata, fonts
 src/pages/             index and 404
 src/styles/global.css  tokens, base styles, shared pieces
 scripts/make-assets.mjs  redraws the social preview and icons (npm run assets)
+.github/workflows/     the deploy to GitHub Pages
 ```
 
 ## Design
