@@ -1,0 +1,143 @@
+---
+import { getCollection } from 'astro:content';
+
+const jobs = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const education = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<ol class="jobs">
+  {
+    jobs.map(({ data }) => (
+      <li class="job">
+        <div class="job-when">
+          <p class="sign">{data.dates}</p>
+          <p class="job-place">{data.place}</p>
+        </div>
+        <div class="job-what">
+          <h3>
+            {data.title}
+            <span class="job-company">{data.company}</span>
+          </h3>
+          <p class="job-summary">{data.summary}</p>
+          <ul class="job-points">
+            {data.points.map((point) => <li>{point}</li>)}
+          </ul>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<div class="school">
+  <h3 class="sign">Education and certificates</h3>
+  <ul>
+    {
+      education.map(({ data }) => (
+        <li>
+          <span class="sign">{data.year}</span>
+          <span>
+            <strong>{data.title}</strong>, {data.where}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .jobs {
+    container-type: inline-size;
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .job {
+    display: grid;
+    gap: 0.75rem;
+    padding-block: clamp(1.5rem, 3vw, 2.25rem);
+    border-top: var(--line) solid var(--ink);
+  }
+
+  .job-place {
+    margin-top: 0.15rem;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  h3 {
+    font-size: var(--step-2);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .job-company {
+    display: block;
+    font-weight: 400;
+    color: var(--ink-2);
+  }
+
+  .job-summary {
+    max-width: 64ch;
+    margin-top: 0.75rem;
+  }
+
+  .job-points {
+    display: grid;
+    gap: 0.4rem;
+    max-width: 64ch;
+    margin-top: 0.75rem;
+    color: var(--ink-2);
+  }
+
+  .job-points li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  .job-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--ink);
+  }
+
+  .school {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+    border-top: var(--line) solid var(--ink);
+  }
+
+  .school h3 {
+    color: var(--ink-2);
+    font-family: var(--font-sign);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .school ul {
+    display: grid;
+    gap: 0.5rem 3rem;
+    margin-top: 1rem;
+  }
+
+  .school li {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  @container (min-width: 52rem) {
+    .job {
+      grid-template-columns: 17rem minmax(0, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .school ul {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

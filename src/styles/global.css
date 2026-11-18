@@ -1,0 +1,367 @@
+/*
+  Design system: "Held at signal".
+  The page is a track diagram. Ink and panel carry everything; colour is reserved for the
+  state of a signal: amber where a person is needed, green where a step is clear, red where
+  a line stops. See DESIGN.md.
+*/
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  src: url('../assets/fonts/atkinson-hyperlegible-next-latin.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sofia Sans Extra Condensed';
+  src: url('../assets/fonts/sofia-sans-extra-condensed-latin.woff2') format('woff2');
+  font-weight: 1 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Metric-matched fallbacks keep the layout still while the fonts load. */
+@font-face {
+  font-family: 'Text Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans');
+  size-adjust: 100%;
+  ascent-override: 95%;
+  descent-override: 25%;
+}
+
+@font-face {
+  font-family: 'Sign Fallback';
+  src: local('Arial Narrow'), local('Liberation Sans Narrow'), local('Arial');
+  size-adjust: 78%;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Day panel */
+  --panel: #ecefea;
+  --panel-2: #e0e5de;
+  --ink: #101413;
+  --ink-2: #434c48;
+  --rule: #bfc6be;
+  --amber: #f5a800;
+  --green: #12a150;
+  --green-ink: #0a6534;
+  --red: #d93a26;
+  --red-ink: #a62a1a;
+
+  --font-text: 'Atkinson Hyperlegible Next', 'Text Fallback', sans-serif;
+  --font-sign: 'Sofia Sans Extra Condensed', 'Sign Fallback', sans-serif;
+
+  --line: max(2px, 0.17rem);
+  --gutter: clamp(1rem, 4vw, 4rem);
+  --rail: clamp(1.75rem, 5vw, 4.5rem);
+  --rail-x: 0.5rem;
+  --bar: 3.5rem;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --panel: #0e1211;
+    --panel-2: #171c1a;
+    --ink: #e9ede8;
+    --ink-2: #a7b0ab;
+    --rule: #333b37;
+    --amber: #ffb627;
+    --green: #35d07f;
+    --green-ink: #5fe09b;
+    --red: #ff6b57;
+    --red-ink: #ff8f7f;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --panel: #0e1211;
+  --panel-2: #171c1a;
+  --ink: #e9ede8;
+  --ink-2: #a7b0ab;
+  --rule: #333b37;
+  --amber: #ffb627;
+  --green: #35d07f;
+  --green-ink: #5fe09b;
+  --red: #ff6b57;
+  --red-ink: #ff8f7f;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* 16px at 320, 20px at 1920. Mixing vw with rem keeps browser zoom working. */
+  font-size: clamp(100%, 0.25vw + 0.95rem, 1.25rem);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--bar) + 1rem);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Past 1920 the whole composition scales with the screen instead of floating in a void. */
+@media (min-width: 120rem) {
+  html {
+    font-size: calc(0.6vw + 0.53rem);
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--panel);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.16em;
+}
+
+:focus-visible {
+  outline: var(--line) solid var(--ink);
+  outline-offset: 0.2rem;
+  border-radius: 0.1rem;
+}
+
+::selection {
+  background: var(--amber);
+  color: #101413;
+}
+
+svg {
+  display: block;
+}
+
+/* Layout */
+
+.wrap {
+  width: 100%;
+  max-width: 104rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* A stop is a section hanging off the main line: rail on the left, content on the right. */
+.stop {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+}
+
+.rail {
+  position: relative;
+}
+
+.rail::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: calc(var(--rail-x) - var(--line) / 2);
+  width: var(--line);
+  background: var(--ink);
+}
+
+.stop-body {
+  padding-block: clamp(3rem, 7vw, 6rem);
+  min-width: 0;
+}
+
+/* Station name: the heading of a stop, with its marker sitting on the main line. */
+.station {
+  position: relative;
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.station::before {
+  content: '';
+  position: absolute;
+  top: 0.5em;
+  left: calc(var(--rail-x) - var(--rail));
+  width: 1.1rem;
+  height: 1.1rem;
+  translate: -50% -50%;
+  border: var(--line) solid var(--ink);
+  border-radius: 50%;
+  background: var(--panel);
+}
+
+.lede {
+  max-width: 60ch;
+  margin-top: 1rem;
+  font-size: var(--step-1);
+  color: var(--ink-2);
+}
+
+/* Sign lettering: labels, dates, anything the system says rather than I do. */
+.sign {
+  font-family: var(--font-sign);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lamp {
+  display: inline-block;
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+  border: max(1.5px, 0.1em) solid var(--ink);
+  border-radius: 50%;
+  background: var(--lamp, var(--amber));
+}
+
+.lamp--green {
+  --lamp: var(--green);
+}
+
+.lamp--red {
+  --lamp: var(--red);
+}
+
+/* Buttons and links */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 3rem;
+  padding: 0.6rem 1.25rem;
+  border: var(--line) solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color 160ms var(--ease),
+    color 160ms var(--ease),
+    translate 160ms var(--ease);
+}
+
+.button:hover {
+  background: var(--ink);
+  color: var(--panel);
+}
+
+.button:active {
+  translate: 0 1px;
+}
+
+.button--solid {
+  background: var(--ink);
+  color: var(--panel);
+}
+
+.button--solid:hover {
+  background: var(--green);
+  border-color: var(--ink);
+  color: #101413;
+}
+
+.arrow {
+  width: 0.85em;
+  height: 0.85em;
+  flex: none;
+  transition: translate 160ms var(--ease);
+}
+
+a:hover > .arrow {
+  translate: 0.12em -0.12em;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 20;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: var(--panel);
+  translate: 0 -200%;
+}
+
+.skip:focus {
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

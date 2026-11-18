@@ -1,0 +1,174 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Arrow from './Arrow.astro';
+import Track from './Track.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>['data'];
+  id: string;
+}
+
+const { project, id } = Astro.props;
+---
+
+<article class="case" id={id} aria-labelledby={`${id}-title`}>
+  <header class="case-head">
+    <p class="case-meta sign">
+      <span>{project.org}</span>
+      <span>{project.dates}</span>
+    </p>
+    <h3 id={`${id}-title`} class="case-title">{project.name}</h3>
+    <p class="case-summary">{project.summary}</p>
+    {
+      project.link && (
+        <a class="case-link sign" href={project.link.url}>
+          {project.link.label} <Arrow />
+        </a>
+      )
+    }
+  </header>
+
+  <div class="case-grid">
+    <div class="case-story">
+      {
+        project.story.map((part) => (
+          <section class="part">
+            <h4 class="sign">{part.label}</h4>
+            <p>{part.text}</p>
+          </section>
+        ))
+      }
+      <section class="part part--tech">
+        <h4 class="sign">Tech</h4>
+        <ul class="tech">
+          {project.tech.map((name) => <li>{name}</li>)}
+        </ul>
+      </section>
+    </div>
+
+    <aside class="case-track" aria-label={project.track.title}>
+      <Track steps={project.track.steps} title={project.track.title} />
+      <p class="case-access">{project.access}</p>
+    </aside>
+  </div>
+</article>
+
+<style>
+  .case {
+    container-type: inline-size;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: var(--line) solid var(--ink);
+  }
+
+  .case-head {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    color: var(--ink-2);
+  }
+
+  .case-title {
+    font-family: var(--font-sign);
+    font-size: clamp(3.4rem, 1.6rem + 9vw, 8.5rem);
+    font-weight: 750;
+    line-height: 0.86;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .case-summary {
+    max-width: 44ch;
+    font-size: var(--step-2);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    min-height: 2.75rem;
+  }
+
+  .case-grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .case-story {
+    display: grid;
+    gap: 1.75rem clamp(2rem, 4vw, 3.5rem);
+    align-content: start;
+  }
+
+  .part h4 {
+    margin-bottom: 0.5rem;
+    color: var(--ink-2);
+  }
+
+  .part p {
+    max-width: 62ch;
+    text-wrap: pretty;
+  }
+
+  .tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tech li {
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--ink);
+    font-size: var(--step--1);
+  }
+
+  .case-track {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: var(--panel-2);
+  }
+
+  .case-access {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  /* Side by side once there is room: the story on the left, the track on the right. */
+  @container (min-width: 60rem) {
+    .case-head {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+
+    .case-meta,
+    .case-title {
+      grid-column: 1 / -1;
+    }
+
+    .case-grid {
+      grid-template-columns: minmax(0, 7fr) minmax(22rem, 5fr);
+      align-items: start;
+    }
+  }
+
+  /* Very wide: the story itself splits in two, so lines stay a comfortable length. */
+  @container (min-width: 88rem) {
+    .case-story {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .part--tech {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

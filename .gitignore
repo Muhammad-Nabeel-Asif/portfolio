@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# The resume PDF prints a phone number in its header. It stays out of git until
+# its owner decides to publish it. The download link only renders when the file exists.
+public/Muhammad-Nabeel-Asif-Resume.pdf

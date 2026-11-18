@@ -1,0 +1,83 @@
+# Each skill lists the places it was used. A place is a key from `places`.
+# A skill with no place does not belong here.
+
+places:
+  - key: felix
+    name: Agent Felix
+  - key: marketos
+    name: MarketOS
+  - key: aqua
+    name: Aqua Nuqi
+  - key: saiban
+    name: Saiban
+  - key: curtio
+    name: Curtio
+  - key: mindrind
+    name: MindRind
+  - key: vivid
+    name: Vivid
+  - key: cbsol
+    name: CBSOL
+
+groups:
+  - name: Languages
+    skills:
+      - { name: TypeScript, used: [felix, marketos, aqua, saiban, mindrind, vivid] }
+      - { name: JavaScript, used: [curtio, cbsol] }
+      - { name: 'Python (Flask, Django)', used: [mindrind] }
+      - { name: SQL, used: [felix, marketos, aqua, vivid] }
+
+  - name: Backend
+    skills:
+      - { name: Node.js, used: [felix, marketos, aqua, saiban, curtio, mindrind, vivid, cbsol] }
+      - { name: NestJS, used: [felix, marketos, saiban, mindrind] }
+      - { name: Express.js, used: [curtio, mindrind, vivid, cbsol] }
+      - { name: Temporal workflows, used: [felix] }
+      - { name: 'Job queues (pg-boss)', used: [marketos] }
+      - { name: Webhooks, used: [felix, mindrind] }
+      - { name: Server-Sent Events, used: [felix, mindrind] }
+      - { name: WebSockets, used: [mindrind] }
+
+  - name: Frontend
+    skills:
+      - { name: React, used: [felix, marketos, aqua, curtio, cbsol] }
+      - { name: Next.js, used: [felix, marketos] }
+      - { name: TanStack Query, used: [marketos, curtio] }
+      - { name: Electron, used: [aqua] }
+      - { name: Tailwind CSS, used: [aqua] }
+
+  - name: Data
+    skills:
+      - { name: PostgreSQL, used: [felix, marketos, vivid] }
+      - { name: MongoDB, used: [saiban, curtio, cbsol] }
+      - { name: SQLite, used: [aqua] }
+      - { name: Drizzle ORM, used: [felix, aqua] }
+      - { name: SQL migrations, used: [marketos, aqua] }
+
+  - name: Sign-in and access
+    skills:
+      - { name: OAuth 2.0, used: [felix, mindrind] }
+      - { name: Session cookies, used: [felix, marketos] }
+      - { name: Role-based access, used: [felix] }
+      - { name: JWT, used: [saiban] }
+      - { name: 'Two-factor sign-in (Twilio)', used: [vivid] }
+      - { name: 'Input validation (Zod)', used: [marketos, aqua] }
+
+  - name: AI and integrations
+    skills:
+      - { name: AI agents with human approval, used: [felix, marketos] }
+      - { name: Anthropic Claude API, used: [marketos] }
+      - { name: 'Shopify, Gmail, Outlook, Slack', used: [felix] }
+      - { name: 'Stripe payments', used: [mindrind, vivid] }
+      - { name: 'Google and Outlook calendars', used: [mindrind] }
+      - { name: 'ElevenLabs voice', used: [mindrind] }
+
+  - name: Testing and delivery
+    skills:
+      - { name: Jest, used: [felix] }
+      - { name: 'Vitest, Playwright', used: [aqua] }
+      - { name: GitHub Actions, used: [marketos, aqua, saiban, mindrind] }
+      - { name: GitLab CI, used: [mindrind, vivid] }
+      - { name: Docker, used: [marketos, mindrind] }
+      - { name: AWS, used: [marketos, saiban, mindrind, vivid] }
+      - { name: Nginx, used: [saiban, mindrind] }

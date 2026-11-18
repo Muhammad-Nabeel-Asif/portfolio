@@ -1,0 +1,60 @@
+order: 1
+name: Agent Felix
+summary: An AI assistant for Shopify stores that answers customers and carries out tasks, with the merchant in control.
+org: Proto IT Consultants
+dates: September 2025 to November 2026
+link:
+  label: agentfelix.ai
+  url: https://www.agentfelix.ai/
+access: Live product. The code is the client's, so the flow is drawn here.
+
+story:
+  - label: The problem
+    text: >-
+      Store owners spend much of their day answering "where is my order?" emails, handling
+      returns and jumping between Shopify, their inbox and Slack. Support falls behind and
+      customers wait a day or more for a reply.
+  - label: What we built
+    text: >-
+      Agent Felix, an AI assistant that works on top of the store's own tools. It reads
+      orders, customers, returns and loyalty points, answers customers and carries out tasks
+      in Shopify, while the merchant stays in control. The agent has more than 200
+      registered tools.
+  - label: My part
+    text: >-
+      I started the NestJS backend from an empty repository and wrote nearly all of it for
+      the first eight months: the Temporal workflows for order tracking, cancellations,
+      address changes and promo codes, the approval queue, and the Gmail and Outlook
+      connections. After that I added Shopify store connections with token refresh, ReturnGO
+      returns and Smile.io loyalty support, team accounts where an invited teammate works on
+      the owner's store, and the approval, connection and team screens in the Next.js web app.
+  - label: The hard part
+    text: >-
+      Trust. Merchants did not want an AI changing orders on its own, so important actions
+      wait in a queue until a person approves them. The wait lives in a Temporal workflow,
+      not in server memory, so a restart or a deploy does not lose it, and each action is
+      recorded as executed so a replay cannot run it twice.
+
+tech: [Next.js, NestJS, TypeScript, PostgreSQL, Temporal, Railway]
+
+track:
+  title: How an action gets approved
+  steps:
+    - kind: start
+      title: A customer message arrives
+      note: By email, through Gmail or Outlook, or by chat.
+    - kind: code
+      title: A workflow starts or picks up again
+      note: One durable Temporal workflow per conversation.
+    - kind: model
+      title: The agent drafts a reply or an action
+      note: It reads the store's orders, returns and loyalty points first.
+    - kind: person
+      title: It waits for a person
+      note: In the approval queue in the web app, or in Slack. A restart does not lose the wait.
+      exit: Rejected or never answered, and nothing is sent.
+    - kind: code
+      title: The action runs once
+      note: It is recorded as executed, so a replay cannot repeat it.
+    - kind: end
+      title: The customer gets an answer

@@ -1,0 +1,128 @@
+---
+import { getProfile, sections, url } from '../lib/site';
+
+const profile = await getProfile();
+---
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <a class="bar-name sign" href={url()}>{profile.name}</a>
+    <nav class="bar-nav" aria-label="Sections">
+      <ul>
+        {
+          sections.map((section) => (
+            <li>
+              <a class="sign" href={url(`#${section.id}`)} data-section={section.id}>
+                {section.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <button class="theme" type="button" aria-label="Switch between light and dark" data-theme-toggle>
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="2"></circle>
+        <path d="M10 2.5a7.5 7.5 0 0 1 0 15z" fill="currentColor"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<style>
+  .bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--panel);
+    border-bottom: var(--line) solid var(--ink);
+  }
+
+  .bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: var(--bar);
+  }
+
+  .bar-name {
+    margin-right: auto;
+    padding-block: 0.75rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .bar-nav ul {
+    display: flex;
+    gap: clamp(0.25rem, 1.2vw, 1.25rem);
+  }
+
+  .bar-nav a {
+    position: relative;
+    display: block;
+    padding: 0.75rem 0.5rem;
+    text-decoration: none;
+  }
+
+  /* The current section is marked the way a station is: a lamp on the line. */
+  .bar-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.45rem;
+    height: var(--line);
+    background: var(--ink);
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 200ms var(--ease);
+  }
+
+  .bar-nav a:hover::after,
+  .bar-nav a[aria-current='true']::after {
+    scale: 1 1;
+  }
+
+  .bar-nav a[aria-current='true']::after {
+    background: var(--amber);
+    outline: 1px solid var(--ink);
+  }
+
+  .theme {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.6rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .theme svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    transition: rotate 300ms var(--ease);
+  }
+
+  :global([data-theme='dark']) .theme svg {
+    rotate: 180deg;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .theme svg {
+      rotate: 180deg;
+    }
+  }
+
+  /* On a phone the hero already lists every route, so the bar keeps only the way to reach me. */
+  @media (max-width: 47.99rem) {
+    .bar-nav li:not(:last-child) {
+      display: none;
+    }
+  }
+</style>

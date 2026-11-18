@@ -1,0 +1,57 @@
+order: 3
+name: Aqua Nuqi
+summary: An offline desktop app that replaced a water delivery plant's paper cards.
+org: Built alone for a water delivery business
+dates: July 2026 to August 2026
+link:
+  label: Source on GitHub
+  url: https://github.com/Muhammad-Nabeel-Asif/aqua-nuqi
+access: My own repository, public on GitHub.
+
+story:
+  - label: The problem
+    text: >-
+      A water plant that delivers 19-litre bottles across a city tracked every delivery on
+      paper cards and wrote bills by hand, so the owner never knew exactly who owed what,
+      how many bottles were out, or what the business really earned.
+  - label: What I built
+    text: >-
+      Aqua Nuqi, an offline desktop app that runs on the plant's own computers and replaces
+      the paper cards: daily deliveries, monthly bills as PDFs, payments, expenses, staff
+      salaries, bottle stock and a profit report.
+  - label: My part
+    text: >-
+      All of it, from the requirements and client questionnaire to the released app:
+      Electron with React, TypeScript and Vite, a local SQLite database with Drizzle
+      migrations, and checks with Zod. I built it phase by phase with AI agents, with a
+      separate review of every phase, and covered it with Vitest unit tests and Playwright
+      end-to-end tests.
+  - label: The hard part
+    text: >-
+      Making it safe to run on someone else's computer, with nobody technical on site.
+      Windows installers and Ubuntu packages are built by GitHub Actions on every change,
+      the app updates itself, the client's data survives every upgrade, and there is backup
+      and restore. A new version only reaches the plant when I promote it by hand.
+
+tech: [Electron, React, TypeScript, Vite, SQLite, Drizzle ORM, Tailwind CSS, Zod, Vitest, Playwright, GitHub Actions]
+
+track:
+  title: How a release reaches the plant
+  steps:
+    - kind: start
+      title: I push a change
+    - kind: code
+      title: Checks run
+      note: Types, lint, unit tests, and end-to-end tests in the real app.
+    - kind: code
+      title: Installers are built
+      note: For Windows and Ubuntu, and each packaged app is smoke-tested.
+    - kind: code
+      title: A pre-release is published
+      note: On every push. The client's download links do not move.
+    - kind: person
+      title: I promote it to stable
+      note: By hand, when I am satisfied with it.
+    - kind: end
+      title: The app updates itself
+      note: The plant's data and backups survive the upgrade.

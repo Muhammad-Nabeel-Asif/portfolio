@@ -1,0 +1,149 @@
+---
+import Arrow from './Arrow.astro';
+import Track from './Track.astro';
+import { getProfile, resumeHref, url } from '../lib/site';
+
+const profile = await getProfile();
+const resume = resumeHref(profile.resumeFile);
+---
+
+<section class="hero stop" aria-labelledby="hero-title">
+  <div class="rail rail--start" aria-hidden="true"></div>
+  <div class="hero-body">
+    <div class="hero-main">
+    <p class="hero-kicker sign">
+      <span>{profile.role}</span>
+      <span>{profile.location}</span>
+      <span class="hero-available"><span class="lamp lamp--green" aria-hidden="true"></span>{profile.availability}</span>
+    </p>
+
+    <h1 id="hero-title">{profile.hero.headline}</h1>
+    <p class="hero-intro">{profile.hero.intro}</p>
+
+    <div class="hero-actions">
+      <a class="button button--solid" href={url('#work')}>See the work <Arrow direction="down" /></a>
+      <a class="button" href={`mailto:${profile.email}`} data-clears-signal>Email me</a>
+      <ul class="hero-links sign">
+        {resume && <li><a href={resume}>Resume (PDF)</a></li>}
+        <li><a href={profile.links.linkedin}>LinkedIn <Arrow /></a></li>
+        <li><a href={profile.links.github}>GitHub <Arrow /></a></li>
+      </ul>
+    </div>
+    </div>
+
+    <figure class="hero-figure">
+      <Track steps={profile.hero.track} layout="auto" live />
+      <figcaption>{profile.hero.trackCaption}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero-body {
+    padding-block: clamp(2.5rem, 6vw, 5.5rem) clamp(3rem, 6vw, 5rem);
+    min-width: 0;
+  }
+
+  /* The main line starts here, at a buffer stop level with the first line of text. */
+  .rail--start::before {
+    top: calc(clamp(2.5rem, 6vw, 5.5rem) + 0.6rem);
+  }
+
+  .rail--start::after {
+    content: '';
+    position: absolute;
+    top: calc(clamp(2.5rem, 6vw, 5.5rem) + 0.6rem);
+    left: var(--rail-x);
+    width: 1rem;
+    height: var(--line);
+    translate: -50% 0;
+    background: var(--ink);
+  }
+
+  .hero-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .hero-available {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  h1 {
+    max-width: 19ch;
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+    font-size: clamp(2.1rem, 1.2rem + 4.2vw, 4.4rem);
+    font-weight: 740;
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  .hero-intro {
+    max-width: 58ch;
+    margin-top: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-size: var(--step-2);
+    line-height: 1.45;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.25rem;
+    margin-left: 0.25rem;
+  }
+
+  .hero-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    min-height: 3rem;
+    padding-inline: 0.6rem;
+  }
+
+  .hero-figure {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: var(--panel-2);
+  }
+
+  /* Wide screens: the statement on the left, the shape of the work on the right. */
+  @media (min-width: 72rem) {
+    .hero-body {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(20rem, 4fr);
+      gap: clamp(2.5rem, 5vw, 6rem);
+      align-items: center;
+    }
+
+    .hero-figure {
+      margin-top: 0;
+    }
+  }
+
+  figcaption {
+    max-width: 60ch;
+    margin-top: 1.5rem;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  /* Reaching for the email button clears the signal. Pure CSS: the page is the demo. */
+  .hero-body:has([data-clears-signal]:is(:hover, :focus-visible)) :global(.step--person .marker) {
+    background: var(--green);
+    animation: none;
+  }
+</style>

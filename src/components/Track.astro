@@ -1,0 +1,253 @@
+---
+/*
+  A track diagram, written as an ordered list so it reads correctly without styles.
+  Each station says who acts there: plain code, a model, or a person. A person is always
+  the amber lamp. `layout="auto"` lays the track out sideways when there is room.
+*/
+import type { Step } from '../content.config';
+
+interface Props {
+  steps: Step[];
+  title?: string;
+  layout?: 'vertical' | 'auto';
+  /** The hero track reacts when the reader reaches for the contact button. */
+  live?: boolean;
+}
+
+const { steps, title, layout = 'vertical', live = false } = Astro.props;
+
+const kindLabel: Record<Step['kind'], string | null> = {
+  start: null,
+  end: null,
+  code: 'Code',
+  model: 'Model',
+  person: 'A person',
+  planned: 'A person, planned',
+};
+---
+
+<div class="track-box">
+  {title && <h4 class="track-title sign">{title}</h4>}
+  <ol class:list={['track', `track--${layout}`, { 'track--live': live }]} style={`--n:${steps.length}`}>
+    {
+      steps.map((step) => (
+        <li class={`step step--${step.kind}`}>
+          <span class="marker" aria-hidden="true" />
+          <div class="step-text">
+            {kindLabel[step.kind] && <span class="kind sign">{kindLabel[step.kind]}</span>}
+            <p class="step-title">{step.title}</p>
+            {step.note && <p class="step-note">{step.note}</p>}
+            {step.exit && (
+              <p class="step-exit">
+                <span class="lamp lamp--red" aria-hidden="true" />
+                <span>{step.exit}</span>
+              </p>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .track-box {
+    container-type: inline-size;
+  }
+
+  .track-title {
+    margin-bottom: 1.25rem;
+    color: var(--ink-2);
+  }
+
+  .track {
+    --m: 2.25rem; /* width of the marker column; the line runs through its centre */
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--m) minmax(0, 1fr);
+    column-gap: 0.9rem;
+    padding-bottom: 1.5rem;
+  }
+
+  /* The line. Each step draws its own segment, so a planned step can draw a dashed one. */
+  .step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--m) / 2 - var(--line) / 2);
+    width: var(--line);
+    background: var(--ink);
+  }
+
+  .step:first-child::before {
+    top: 0.8rem;
+  }
+
+  .step:last-child {
+    padding-bottom: 0;
+  }
+
+  .step:last-child::before {
+    bottom: auto;
+    height: 0.8rem;
+  }
+
+  .step--planned::before {
+    background: repeating-linear-gradient(to bottom, var(--ink) 0 0.3rem, transparent 0.3rem 0.6rem);
+  }
+
+  .marker {
+    position: relative;
+    z-index: 1;
+    justify-self: center;
+    margin-top: 0.3rem;
+    width: 1rem;
+    height: 1rem;
+    border: var(--line) solid var(--ink);
+    border-radius: 50%;
+    background: var(--panel);
+  }
+
+  .step--start .marker,
+  .step--end .marker {
+    background: var(--ink);
+  }
+
+  .step--end .marker {
+    box-shadow:
+      0 0 0 var(--line) var(--panel),
+      0 0 0 calc(var(--line) * 2) var(--ink);
+  }
+
+  .step--code .marker {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-top: 0.4rem;
+    border-radius: 0;
+    background: var(--ink);
+  }
+
+  /* The signal. The only colour on the track. */
+  .step--person .marker,
+  .step--planned .marker {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-top: 0;
+    background: var(--amber);
+  }
+
+  .step--planned .marker {
+    border-style: dashed;
+    background: color-mix(in srgb, var(--amber) 30%, var(--panel));
+  }
+
+  .kind {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 1rem;
+    color: var(--ink-2);
+  }
+
+  .step--person .kind,
+  .step--planned .kind {
+    color: var(--ink);
+  }
+
+  .step-title {
+    font-weight: 650;
+    line-height: 1.3;
+  }
+
+  .step-note {
+    margin-top: 0.2rem;
+    max-width: 46ch;
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .step-exit {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 0.45rem;
+    max-width: 46ch;
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .step-exit .lamp {
+    translate: 0 0.05em;
+    border-radius: 0;
+  }
+
+  /* Sideways, when the box is wide enough for every station to sit on one line. */
+  @container (min-width: 46rem) {
+    .track--auto {
+      display: grid;
+      grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    }
+
+    .track--auto .step {
+      display: block;
+      padding: 0 1.5rem 0 0;
+    }
+
+    .track--auto .step::before {
+      top: calc(0.8rem - var(--line) / 2);
+      bottom: auto;
+      left: 0;
+      right: 0;
+      width: auto;
+      height: var(--line);
+    }
+
+    .track--auto .step:first-child::before {
+      left: 0.5rem;
+    }
+
+    .track--auto .step:last-child::before {
+      right: auto;
+      width: 0.5rem;
+      height: var(--line);
+    }
+
+    .track--auto .marker {
+      display: block;
+      justify-self: start;
+      margin: 0.3rem 0 1rem;
+    }
+
+    .track--auto .step--code .marker {
+      margin-top: 0.4rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .track--auto .step--person .marker,
+    .track--auto .step--planned .marker {
+      margin-top: 0;
+      margin-bottom: 0.7rem;
+    }
+  }
+
+  /* A held signal breathes. It is the one place the page moves on its own. */
+  .track--live .step--person .marker {
+    animation: held 2.6s ease-in-out infinite;
+    transition: background-color 240ms var(--ease);
+  }
+
+  @keyframes held {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--amber) 60%, transparent);
+    }
+    50% {
+      box-shadow: 0 0 0 0.55rem transparent;
+    }
+  }
+</style>

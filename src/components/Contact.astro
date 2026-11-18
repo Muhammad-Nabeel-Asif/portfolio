@@ -1,0 +1,161 @@
+---
+import Arrow from './Arrow.astro';
+import { getProfile, resumeHref } from '../lib/site';
+
+const profile = await getProfile();
+const resume = resumeHref(profile.resumeFile);
+---
+
+<div class="contact">
+  <p class="signal" aria-hidden="true">
+    <span class="signal-lamp"></span>
+    <span class="signal-text sign">
+      <span class="signal-held">{profile.contact.held}</span>
+      <span class="signal-clear">{profile.contact.clear}</span>
+    </span>
+  </p>
+
+  <h2 id="contact-title" class="contact-heading">{profile.contact.heading}</h2>
+  <p class="contact-body">{profile.contact.body}</p>
+
+  <a class="contact-email" href={`mailto:${profile.email}`} data-clears-signal>
+    {profile.email}
+  </a>
+
+  <ul class="contact-links sign">
+    <li><a href={profile.links.linkedin}>LinkedIn <Arrow /></a></li>
+    <li><a href={profile.links.github}>GitHub <Arrow /></a></li>
+    {resume && <li><a href={resume}>Resume (PDF) <Arrow direction="down" /></a></li>}
+  </ul>
+</div>
+
+<style>
+  .contact {
+    display: grid;
+    justify-items: start;
+  }
+
+  /* The signal at the end of the line. The main line turns and runs into it. */
+  .signal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .signal::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: calc(var(--rail) - var(--rail-x));
+    height: var(--line);
+    translate: 0 -50%;
+    background: var(--ink);
+  }
+
+  .signal-lamp {
+    width: clamp(3rem, 2rem + 4vw, 5rem);
+    aspect-ratio: 1;
+    border: var(--line) solid var(--ink);
+    border-radius: 50%;
+    background: var(--amber);
+    animation: held 2.6s ease-in-out infinite;
+    transition: background-color 240ms var(--ease);
+  }
+
+  .signal-text {
+    display: grid;
+    font-size: 1.35rem;
+  }
+
+  .signal-text > * {
+    grid-area: 1 / 1;
+    transition:
+      opacity 200ms var(--ease),
+      translate 200ms var(--ease);
+  }
+
+  .signal-clear {
+    opacity: 0;
+    translate: 0 0.4em;
+  }
+
+  .contact-heading {
+    max-width: 16ch;
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    font-size: clamp(2.1rem, 1.2rem + 4.2vw, 4.4rem);
+    font-weight: 740;
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  .contact-body {
+    max-width: 52ch;
+    margin-top: 1.25rem;
+    font-size: var(--step-2);
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .contact-email {
+    display: inline-block;
+    max-width: 100%;
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    padding: 0.7rem 0;
+    font-size: clamp(1.25rem, 0.6rem + 3.2vw, 3rem);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-decoration-thickness: var(--line);
+    text-underline-offset: 0.18em;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-email:hover {
+    text-decoration-color: var(--green);
+    text-decoration-thickness: calc(var(--line) * 2);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.5rem;
+    margin-top: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .contact-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    min-height: 3rem;
+  }
+
+  /* Reaching for the email address clears the signal. */
+  .contact:has([data-clears-signal]:is(:hover, :focus-visible)) .signal-lamp {
+    background: var(--green);
+    animation: none;
+  }
+
+  .contact:has([data-clears-signal]:is(:hover, :focus-visible)) .signal-held {
+    opacity: 0;
+    translate: 0 -0.4em;
+  }
+
+  .contact:has([data-clears-signal]:is(:hover, :focus-visible)) .signal-clear {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @keyframes held {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--amber) 60%, transparent);
+    }
+    50% {
+      box-shadow: 0 0 0 0.9rem transparent;
+    }
+  }
+</style>

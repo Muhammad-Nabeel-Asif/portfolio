@@ -1,0 +1,125 @@
+---
+import Arrow from '../components/Arrow.astro';
+import Footer from '../components/Footer.astro';
+import TopBar from '../components/TopBar.astro';
+import Base from '../layouts/Base.astro';
+import { getProfile, url } from '../lib/site';
+
+const profile = await getProfile();
+---
+
+<Base title={`Page not found. ${profile.name}`} description="This page does not exist." noindex>
+  <TopBar />
+  <main id="main" class="wrap">
+    <section class="stop lost" aria-labelledby="lost-title">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="lost-body">
+        <p class="lost-signal sign">
+          <span class="lost-lamp" aria-hidden="true"></span>
+          Signal at danger
+        </p>
+        <h1 id="lost-title">This line is closed.</h1>
+        <p class="lost-text">
+          There is no page at this address. It may have moved when the site was rebuilt. Nothing was lost: every
+          route starts from the front page.
+        </p>
+        <div class="lost-actions">
+          <a class="button button--solid" href={url()}>Back to the start</a>
+          <a class="button" href={`mailto:${profile.email}`}>Email me</a>
+          <a class="lost-link sign" href={profile.links.linkedin}>LinkedIn <Arrow /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  toggle?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    const next = (root.dataset.theme ?? (systemDark ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+  });
+</script>
+
+<style>
+  .lost {
+    min-height: calc(100svh - var(--bar) - 5rem);
+  }
+
+  .lost-body {
+    padding-block: clamp(3rem, 10vh, 8rem);
+    min-width: 0;
+  }
+
+  /* The line runs in from the top and stops dead at the red signal. */
+  .lost .rail::before {
+    bottom: auto;
+    height: calc(clamp(3rem, 10vh, 8rem) + 1.25rem);
+  }
+
+  .lost-signal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.35rem;
+  }
+
+  .lost-signal::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: calc(var(--rail) - var(--rail-x));
+    height: var(--line);
+    translate: 0 -50%;
+    background: var(--ink);
+  }
+
+  .lost-lamp {
+    width: 2.5rem;
+    aspect-ratio: 1;
+    border: var(--line) solid var(--ink);
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  h1 {
+    max-width: 14ch;
+    margin-top: 1.5rem;
+    font-size: clamp(2.6rem, 1.2rem + 7vw, 7rem);
+    font-weight: 740;
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+
+  .lost-text {
+    max-width: 50ch;
+    margin-top: 1.5rem;
+    font-size: var(--step-2);
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .lost-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .lost-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    min-height: 3rem;
+    padding-inline: 0.6rem;
+  }
+</style>

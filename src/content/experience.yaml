@@ -1,0 +1,59 @@
+# Shown in `order`, newest first. Titles and dates match the resume.
+
+- id: proto
+  order: 1
+  company: Proto IT Consultants
+  title: Senior Software Engineer
+  dates: September 2025 to November 2026
+  place: Islamabad, Pakistan (remote)
+  summary: >-
+    Worked remotely as a senior engineer for international clients, owning each product from
+    the first requirements and technical architecture through development, testing,
+    deployment and support after launch.
+  points:
+    - Built the backend and integrations of Agent Felix, an AI assistant for Shopify stores, on NestJS and Temporal.
+    - Designed and built MarketOS, an AI agent system for a US healthcare company, as its only engineer.
+    - Restructured the code of Curtio, a link shortener, and handled its releases.
+
+- id: mindrind
+  order: 2
+  company: MindRind
+  title: Software Engineer
+  dates: August 2023 to August 2025
+  place: Lahore, Pakistan
+  summary: >-
+    Led web delivery of 8+ production apps for clients in e-commerce, AI, logistics,
+    education and fintech: met clients, turned their requests into requirements and
+    timelines, split the work across the team, reviewed code and gave demos.
+  points:
+    - Built REST and real-time APIs with Node.js, NestJS and Express.js, plus Python (Flask, Django) where the client needed it.
+    - Added Stripe and PayPal payments, and built Bookmeet, a calendar product that keeps Google Calendar and Outlook in step through OAuth 2.0 and webhooks.
+    - Built voice features with ElevenLabs and live document parsing over WebSockets and Server-Sent Events.
+    - Automated releases with Docker, GitLab CI and GitHub Actions on AWS and VPS servers, cutting deployment time by 80%.
+
+- id: vivid
+  order: 3
+  company: Vivid Technologies
+  title: Software Engineer
+  dates: August 2022 to August 2023
+  place: Lahore, Pakistan
+  summary: >-
+    Built backend services with Node.js, Express.js, TypeScript and PostgreSQL for Heale, a
+    delivery platform, covering users, deliveries, rewards and identity checks.
+  points:
+    - Added Stripe card payments and crypto payment events, with tables designed so every transaction is recorded correctly.
+    - Built in-app voice calling with the VoximPlant SDK and Twilio two-factor sign-in.
+    - Built a Node.js SEO analysis service on Google PageSpeed Insights, and looked after AWS (EC2, S3, RDS) and GitLab CI pipelines.
+
+- id: cbsol
+  order: 4
+  company: CBSOL
+  title: Associate Software Engineer
+  dates: October 2021 to July 2022
+  place: Lahore, Pakistan
+  summary: >-
+    Turned Figma designs into responsive React pages made of reusable components, connected
+    to Node.js, Express.js and MongoDB APIs, for a marketplace and internal admin tools.
+  points:
+    - Built a real-time appointment platform where patients see a doctor's live availability and book a slot.
+    - Fixed bugs across React, Node.js, Express.js and MongoDB, and shipped features with code reviews and testing.

@@ -1,0 +1,88 @@
+# Who I am and how to reach me. Everything on the page that is not a project,
+# a job or a skill comes from this file.
+
+name: Muhammad Nabeel Asif
+shortName: Nabeel
+role: Senior software engineer
+location: Lahore, Pakistan
+availability: Available to join immediately
+
+email: nabeel.asif362@gmail.com
+links:
+  linkedin: https://www.linkedin.com/in/muhammad-nabeel-asif
+  github: https://github.com/Muhammad-Nabeel-Asif
+
+# Shown as "Source" in the footer once the repository is public. Leave empty to hide it.
+repository: ''
+
+# File name inside public/. The download link only renders when the file exists.
+resumeFile: Muhammad-Nabeel-Asif-Resume.pdf
+
+meta:
+  title: Muhammad Nabeel Asif, senior software engineer
+  description: >-
+    Senior software engineer in Lahore. I build AI agent systems that stop and ask a person
+    before they act, and the Node.js, NestJS and PostgreSQL backends behind them.
+
+hero:
+  headline: I build AI agent systems that stop and ask a person before they act.
+  intro: >-
+    And everything around the model that makes that safe: the integrations with the tools a
+    business already runs on, the workflows that survive a restart, and the record of why
+    each decision was made. Five years with Node.js, NestJS, TypeScript, React and PostgreSQL,
+    owning products from the first requirements to the live release.
+  trackCaption: The shape of most things I build. The amber signal is the part I care about most.
+  track:
+    - kind: start
+      title: A customer writes in
+      note: An email or a chat message.
+    - kind: model
+      title: The agent drafts a reply
+      note: Using the store's own orders and returns.
+    - kind: person
+      title: Held for a person
+      note: Important actions wait here until someone says go.
+    - kind: code
+      title: Runs once
+      note: Even if the server restarts halfway.
+
+about:
+  - >-
+    I started in 2021 turning Figma files into React pages, and kept moving toward the parts
+    of a product that have to be right: payments, sign-in, the data model, the jobs that run
+    while nobody is watching.
+  - >-
+    These days most of my work is AI agents, which mostly means building what surrounds the
+    model: what it is allowed to touch, where it has to stop and ask, and how to tell
+    afterwards why it did what it did.
+  - >-
+    I like owning a product from the first client meeting to the release, and I have done it
+    both leading a team and as the only engineer. I build with Claude Code and Cursor every
+    day, with checks around them so that speed never costs quality.
+
+facts:
+  - label: Based in
+    value: Lahore, Pakistan (UTC+5)
+  - label: Working hours
+    value: I can overlap with both US and European teams
+  - label: Languages
+    value: English and Urdu
+  - label: Open to
+    value: Senior full-stack, backend and AI engineering roles
+
+# One line from a recommendation on my LinkedIn profile. Delete this block to remove it.
+recommendation:
+  quote: I’ve worked with a lot of engineers over the years, and Nabeel stands out.
+  author: Remy Tennant
+  authorRole: Founder, Orchestra Studios
+  context: Managed me directly on Agent Felix
+  sourceLabel: Full recommendation on LinkedIn
+  sourceUrl: https://www.linkedin.com/in/muhammad-nabeel-asif/details/recommendations/
+
+contact:
+  heading: The last step needs a person.
+  body: >-
+    Everything above runs without you. Whether we talk is your call. Email is the fastest
+    way to reach me, and I can join immediately.
+  held: Held for a person
+  clear: Clear to proceed

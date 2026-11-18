@@ -1,0 +1,48 @@
+order: 4
+name: Heale
+summary: A web and mobile logistics platform where vendors hand delivery loads to drivers and follow each one to the end.
+org: Vivid Technologies
+dates: December 2022 to July 2023
+link:
+  label: healelabs.com
+  url: https://healelabs.com/
+access: Live product. The code is the client's, so the flow is drawn here.
+
+story:
+  - label: The problem
+    text: >-
+      Vendors handing delivery loads to drivers had no reliable way to see who had a load,
+      where it was and whether it arrived, and checking drivers' documents slowed onboarding
+      down.
+  - label: What we built
+    text: >-
+      Heale, a web and mobile logistics platform where vendors invite drivers, assign loads
+      and follow each delivery to the end.
+  - label: My part
+    text: >-
+      I built the REST APIs for driver invitations, load assignment, delivery tracking and
+      status updates, and the onboarding flow with document checks and approval steps. On
+      the same platform I added Stripe card payments, in-app voice calling with the
+      VoximPlant SDK, and Twilio two-factor sign-in for drivers and vendors.
+  - label: The hard part
+    text: >-
+      A status is only useful if it is true. I added barcode scanning at delivery
+      checkpoints, so a load is confirmed on the spot and its status stays accurate.
+
+tech: [Node.js, Express.js, TypeScript, PostgreSQL, React]
+
+track:
+  title: How a load moves
+  steps:
+    - kind: start
+      title: A vendor invites a driver
+    - kind: person
+      title: The driver's documents are checked
+      note: Onboarding waits for approval.
+    - kind: code
+      title: The vendor assigns a load
+    - kind: code
+      title: A barcode is scanned at each checkpoint
+      note: The load is confirmed on the spot.
+    - kind: end
+      title: Delivered, with a status you can rely on

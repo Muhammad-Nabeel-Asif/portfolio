@@ -1,0 +1,44 @@
+# Smaller entries under the case studies.
+
+- id: curtio
+  order: 1
+  name: Curtio
+  context: Proto IT Consultants, 2026
+  text: >-
+    A link shortener whose click reports leave out bots and repeat clicks. I restructured
+    the Express backend into modules, moved the React app onto feature modules and TanStack
+    Query, and handled a production rollback and restore.
+  link:
+    label: curtio.io
+    url: https://www.curtio.io/
+
+- id: saiban
+  order: 2
+  name: Saiban
+  context: My own project, 2026
+  text: >-
+    A medical billing and inventory backend: stock, orders confirmed in two steps, payments,
+    and a ledger with a running balance for every customer. NestJS and MongoDB, deployed to
+    AWS EC2 with GitHub Actions.
+  link:
+    label: Source on GitHub
+    url: https://github.com/Muhammad-Nabeel-Asif/saiban-backend
+
+- id: ma-traders
+  order: 3
+  name: MA Traders POS
+  context: My own project, 2026
+  text: >-
+    An offline point-of-sale desktop app for a wholesale distributor: invoices, stock, cash
+    vouchers and ledgers. Money is stored as whole paisa, so totals never drift.
+  link:
+    label: Source on GitHub
+    url: https://github.com/Muhammad-Nabeel-Asif/ma-traders-pos
+
+- id: bookmeet
+  order: 4
+  name: Bookmeet
+  context: MindRind
+  text: >-
+    A calendar product that keeps Google Calendar and Outlook in step through OAuth 2.0 and
+    webhooks.

@@ -1,0 +1,140 @@
+---
+import Arrow from './Arrow.astro';
+import { getProfile } from '../lib/site';
+
+const { about, facts, recommendation } = await getProfile();
+---
+
+<div class="about-box">
+<div class="about">
+  <div class="about-text">
+    {about.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+
+  <dl class="facts">
+    {
+      facts.map((fact) => (
+        <div>
+          <dt class="sign">{fact.label}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  {
+    recommendation && (
+      <figure class="word">
+        <blockquote>
+          <p>{recommendation.quote}</p>
+        </blockquote>
+        <figcaption>
+          <p>
+            <strong>{recommendation.author}</strong>, {recommendation.authorRole}
+          </p>
+          <p class="word-context">{recommendation.context}</p>
+          <a class="sign" href={recommendation.sourceUrl}>
+            {recommendation.sourceLabel} <Arrow />
+          </a>
+        </figcaption>
+      </figure>
+    )
+  }
+</div>
+</div>
+
+<style>
+  .about-box {
+    container-type: inline-size;
+  }
+
+  .about {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .about-text {
+    display: grid;
+    gap: 1.1rem;
+    max-width: 60ch;
+    font-size: var(--step-2);
+    line-height: 1.45;
+    text-wrap: pretty;
+  }
+
+  .facts {
+    display: grid;
+    align-content: start;
+    border-top: var(--line) solid var(--ink);
+  }
+
+  .facts div {
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .facts dt {
+    font-size: 1rem;
+    color: var(--ink-2);
+  }
+
+  .word {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: var(--panel-2);
+    border-left: var(--line) solid var(--ink);
+  }
+
+  .word blockquote p {
+    max-width: 30ch;
+    font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+    font-weight: 650;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .word figcaption {
+    display: grid;
+    gap: 0.15rem;
+    justify-items: start;
+    margin-top: 1.25rem;
+  }
+
+  .word-context {
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .word a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    min-height: 2.75rem;
+    margin-top: 0.25rem;
+    font-size: 1rem;
+  }
+
+  /* Wide: my words on the left; someone else's, and the plain facts, on the right. */
+  @container (min-width: 60rem) {
+    .about {
+      grid-template-columns: minmax(0, 7fr) minmax(20rem, 5fr);
+      column-gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
+    }
+
+    .about-text {
+      grid-row: 1 / span 2;
+    }
+
+    .word {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .facts {
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+</style>

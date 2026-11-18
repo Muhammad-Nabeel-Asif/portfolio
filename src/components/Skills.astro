@@ -1,0 +1,189 @@
+---
+/*
+  Skills as a strip map: every skill is a line, and it stops at the places it was used.
+  Narrow screens list the places by name; wide screens line them up in columns.
+*/
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('skills', 'skills');
+if (!entry) throw new Error('src/content/skills.yaml is missing');
+const { places, groups } = entry.data;
+
+const column = new Map(places.map((place, index) => [place.key, index + 1]));
+const placeName = new Map(places.map((place) => [place.key, place.name]));
+
+function stops(used: string[]) {
+  return used
+    .map((key) => {
+      const col = column.get(key);
+      if (!col) throw new Error(`skills.yaml: unknown place "${key}"`);
+      return { col, name: placeName.get(key)! };
+    })
+    .sort((a, b) => a.col - b.col);
+}
+---
+
+<div class="map" style={`--cols:${places.length}`}>
+  <div class="map-head" aria-hidden="true">
+    <span></span>
+    {places.map((place) => <span class="sign">{place.name}</span>)}
+  </div>
+
+  {
+    groups.map((group) => (
+      <section class="group">
+        <h3 class="sign">{group.name}</h3>
+        <ul>
+          {group.skills.map((skill) => {
+            const at = stops(skill.used);
+            return (
+              <li class="skill" style={`--from:${at[0].col};--to:${at[at.length - 1].col}`}>
+                <span class="skill-name">{skill.name}</span>
+                <span class="visually-hidden">, used on </span>
+                <ul class="skill-stops">
+                  {at.map((stop) => (
+                    <li style={`--col:${stop.col}`}>
+                      <span class="dot" aria-hidden="true" />
+                      <span class="where">{stop.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .map {
+    --name: 17rem; /* width of the skill-name column in the wide layout */
+    container-type: inline-size;
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  .map-head {
+    display: none;
+  }
+
+  .group {
+    padding-block: 1.25rem 1.5rem;
+    border-top: var(--line) solid var(--ink);
+  }
+
+  .group h3 {
+    margin-bottom: 0.5rem;
+    color: var(--ink-2);
+  }
+
+  .skill {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.1rem 1.25rem;
+    padding-block: 0.55rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .skill:first-child {
+    border-top: 0;
+  }
+
+  .skill-name {
+    font-weight: 650;
+  }
+
+  .skill-stops {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1rem 1rem;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  .skill-stops li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .dot {
+    flex: none;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  /* The strip map proper. */
+  @container (min-width: 62rem) {
+    .map-head,
+    .skill {
+      display: grid;
+      grid-template-columns: var(--name) repeat(var(--cols), minmax(0, 1fr));
+      align-items: center;
+    }
+
+    .map-head {
+      position: sticky;
+      top: var(--bar);
+      z-index: 2;
+      padding-block: 0.75rem;
+      background: var(--panel);
+    }
+
+    .map-head .sign {
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .skill {
+      position: relative;
+      padding-block: 0.4rem;
+    }
+
+    /* The line a skill runs along, from its first stop to its last. */
+    .skill::after {
+      content: '';
+      grid-row: 1;
+      grid-column: calc(var(--from) + 1) / calc(var(--to) + 2);
+      height: var(--line);
+      margin-inline: calc(50% / (var(--to) - var(--from) + 1));
+      background: var(--ink);
+    }
+
+    .skill-name {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .skill-stops {
+      display: contents;
+    }
+
+    .skill-stops li {
+      grid-row: 1;
+      grid-column: calc(var(--col) + 1);
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .dot {
+      width: 1rem;
+      height: 1rem;
+      border: var(--line) solid var(--ink);
+      background: var(--panel);
+    }
+
+    .where {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+</style>

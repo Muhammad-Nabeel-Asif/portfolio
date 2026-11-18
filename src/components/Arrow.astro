@@ -1,0 +1,11 @@
+---
+/** Small arrow for links. `out` points up and right for links that leave the site. */
+interface Props {
+  direction?: 'out' | 'down';
+}
+const { direction = 'out' } = Astro.props;
+---
+
+<svg class="arrow" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square">
+  {direction === 'out' ? <path d="M2.5 9.5 9.5 2.5M4 2.5h5.5V8" /> : <path d="M6 1.5v9M2 6.8 6 10.8l4-4" />}
+</svg>

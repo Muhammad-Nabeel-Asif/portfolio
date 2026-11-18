@@ -1,0 +1,191 @@
+---
+import { getCollection } from 'astro:content';
+import About from '../components/About.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import Contact from '../components/Contact.astro';
+import Experience from '../components/Experience.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import MoreWork from '../components/MoreWork.astro';
+import Skills from '../components/Skills.astro';
+import TopBar from '../components/TopBar.astro';
+import Base from '../layouts/Base.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base>
+  <TopBar />
+  <main id="main" class="wrap">
+    <Hero />
+
+    <section id="work" class="stop" aria-labelledby="work-title">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="stop-body">
+        <h2 id="work-title" class="station">Work</h2>
+        <p class="lede">
+          Four projects, each told the same way: the problem, what we built, my part and the hard part.
+          Most of this code belongs to clients, so the systems are drawn instead of shown.
+        </p>
+        <ul class="legend" aria-label="How to read the diagrams">
+          <li><span class="key key--code" aria-hidden="true"></span>Plain code</li>
+          <li><span class="key key--model" aria-hidden="true"></span>A model</li>
+          <li><span class="key key--person" aria-hidden="true"></span>A person decides</li>
+        </ul>
+        <nav class="index" aria-label="Projects">
+          <ul class="sign">
+            {
+              projects.map((project) => (
+                <li>
+                  <a href={`#${project.id}`}>{project.data.name}</a>
+                </li>
+              ))
+            }
+            <li><a href="#more-work">More work</a></li>
+          </ul>
+        </nav>
+        <div class="cases">
+          {projects.map((project) => <CaseStudy project={project.data} id={project.id} />)}
+          <MoreWork />
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="stop" aria-labelledby="experience-title">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="stop-body">
+        <h2 id="experience-title" class="station">Experience</h2>
+        <Experience />
+      </div>
+    </section>
+
+    <section id="skills" class="stop" aria-labelledby="skills-title">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="stop-body">
+        <h2 id="skills-title" class="station">Skills</h2>
+        <p class="lede">Every skill here is tied to the place I used it. If it has no stop, it is not on the list.</p>
+        <Skills />
+      </div>
+    </section>
+
+    <section id="about" class="stop" aria-labelledby="about-title">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="stop-body">
+        <h2 id="about-title" class="station">About</h2>
+        <About />
+      </div>
+    </section>
+
+    <section id="contact" class="stop stop--last" aria-labelledby="contact-title">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="stop-body">
+        <Contact />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<script>
+  // Two small behaviours. Everything else on the page is HTML and CSS.
+
+  // 1. The theme switch. The saved choice is applied in <head> before first paint.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  toggle?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    const current = root.dataset.theme ?? (systemDark ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      // Private mode: the choice lasts for this page view only.
+    }
+  });
+
+  // 2. Mark the section being read in the top bar.
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('[data-section]')].map((link) => [link.dataset.section, link]),
+  );
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        for (const [id, link] of links) {
+          if (id === entry.target.id) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        }
+      }
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  for (const id of links.keys()) {
+    const section = id && document.getElementById(id);
+    if (section) observer.observe(section);
+  }
+</script>
+
+<style>
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    margin-top: 1.5rem;
+    font-size: var(--step--1);
+  }
+
+  .legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .key {
+    width: 1rem;
+    height: 1rem;
+    border: var(--line) solid var(--ink);
+    border-radius: 50%;
+  }
+
+  .key--code {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 0;
+    background: var(--ink);
+  }
+
+  .key--person {
+    width: 1.3rem;
+    height: 1.3rem;
+    background: var(--amber);
+  }
+
+  .index {
+    margin-top: 1.25rem;
+  }
+
+  .index ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5rem;
+    margin-left: -0.5rem;
+  }
+
+  .index a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.5rem;
+  }
+
+  .cases {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  /* The main line ends at the last stop, where it turns into the signal. */
+  .stop--last .rail::before {
+    bottom: auto;
+    height: calc(clamp(3rem, 7vw, 6rem) + clamp(3rem, 2rem + 4vw, 5rem) / 2);
+  }
+</style>

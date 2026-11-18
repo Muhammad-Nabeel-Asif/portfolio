@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import Arrow from './Arrow.astro';
+
+const items = (await getCollection('moreWork')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<div class="more" id="more-work">
+  <h3 class="sign">More work</h3>
+  <ul class="more-list">
+    {
+      items.map(({ data }) => (
+        <li class="more-item">
+          <div class="more-name">
+            <h4>{data.name}</h4>
+            <p class="sign">{data.context}</p>
+          </div>
+          <p class="more-text">{data.text}</p>
+          {data.link ? (
+            <a class="more-link sign" href={data.link.url}>
+              {data.link.label} <Arrow />
+            </a>
+          ) : (
+            <span />
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .more {
+    container-type: inline-size;
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+    border-top: var(--line) solid var(--ink);
+  }
+
+  .more > h3 {
+    color: var(--ink-2);
+  }
+
+  .more-list {
+    margin-top: 1rem;
+  }
+
+  .more-item {
+    display: grid;
+    gap: 0.5rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .more-name h4 {
+    font-family: var(--font-sign);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .more-name p {
+    margin-top: 0.25rem;
+    font-size: 1rem;
+    color: var(--ink-2);
+  }
+
+  .more-text {
+    max-width: 62ch;
+  }
+
+  .more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    min-height: 2.75rem;
+    justify-self: start;
+  }
+
+  @container (min-width: 56rem) {
+    .more-item {
+      grid-template-columns: 15rem minmax(0, 1fr) 12rem;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .more-link {
+      justify-self: end;
+      min-height: 0;
+    }
+  }
+</style>

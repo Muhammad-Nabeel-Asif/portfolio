@@ -1,0 +1,72 @@
+order: 2
+name: MarketOS
+summary: An AI agent system that reads US healthcare regulation news and tells a sales team which changes matter to which customers.
+org: Proto IT Consultants
+dates: October 2026 to November 2026
+access: Private system for a US healthcare technology company, so the pipeline is drawn here.
+
+story:
+  - label: The problem
+    text: >-
+      A US healthcare technology company sells to cardiology and primary-care practices, and
+      its sales team depends on news from Medicare (CMS), the Federal Register, regulators
+      and the trade press. Notices arrive every day, most do not matter, the few that do
+      were found late, and customer messages were written by hand with the risk of promising
+      something the company had not approved.
+  - label: What we built
+    text: >-
+      MarketOS, a system that reads those sources on a schedule, works out which changes
+      really matter and to whom, and turns them into a short brief for the team. It is
+      designed around one rule: nothing reaches a customer unless a named person approves
+      that exact version. On staging the chain runs from reading a source to a draft brief.
+      Approving and sending was the next phase of the plan.
+  - label: My part
+    text: >-
+      I was the only engineer. I turned the client's documents into one project reference
+      and a phased build plan, then built the NestJS API and worker, more than 20 source
+      readers (Federal Register, Regulations.gov, CMS, OIG, GAO and news sites), the
+      PostgreSQL job queue, the review screens and sign-in, and the release flow to a
+      staging server on AWS EC2.
+  - label: The hard part
+    text: >-
+      Keeping the AI honest. Every model answer must match a fixed shape (Zod). When the
+      model says a rule changed, it has to quote the rule word for word, and code checks
+      that quote against the saved document. Rules that must never depend on AI live in
+      plain code. Every run is saved with its model, cost and instruction version, so the
+      team can see why a decision was made and mark it wrong.
+
+tech: [Next.js, NestJS, TypeScript, PostgreSQL, pg-boss, Anthropic Claude API, Zod, Docker, GitHub Actions]
+
+track:
+  title: How one change becomes a brief
+  steps:
+    - kind: start
+      title: Sources are read on a schedule
+      note: Federal Register, Regulations.gov, CMS, OIG, GAO and trade news. A copy of every new item is saved.
+    - kind: code
+      title: Off-topic items stop here
+      note: A filter in plain code. Nothing is deleted.
+    - kind: person
+      title: Is this the same change seen twice?
+      note: Code matches document numbers and links. A model only suggests the close calls, and a person decides the merge.
+    - kind: person
+      title: Do the sources disagree?
+      note: The change is held. A model must quote both sides, and a person makes the call.
+    - kind: code
+      title: The evidence is labelled
+      note: By rules, not by a model.
+    - kind: model
+      title: Checked against the rule itself
+      note: The model must quote the governing document word for word. Code checks the quote against the saved copy.
+    - kind: model
+      title: Who does this affect?
+      note: Judged against the client's customer profile.
+    - kind: model
+      title: A response is picked
+      note: From a fixed list. Code enforces the limits.
+    - kind: model
+      title: A draft brief is written
+      note: Each step is saved with its model, cost and instruction version.
+    - kind: planned
+      title: A named person approves
+      note: The last gate before anything is sent. Designed, and next on the plan when the build reached staging.

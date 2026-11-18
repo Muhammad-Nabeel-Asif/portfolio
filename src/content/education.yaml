@@ -1,0 +1,20 @@
+- id: msc
+  order: 1
+  title: MSc in Computer Science
+  where: University of Agriculture Faisalabad
+  year: '2021'
+- id: bsc
+  order: 2
+  title: BSc in Computer Science
+  where: Government College University Faisalabad
+  year: '2019'
+- id: claude-code-101
+  order: 3
+  title: 'Claude Academy: Claude Code 101'
+  where: Anthropic
+  year: '2026'
+- id: claude-101
+  order: 4
+  title: 'Claude Academy: Claude 101'
+  where: Anthropic
+  year: '2026'
