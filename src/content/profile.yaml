@@ -13,7 +13,7 @@ links:
   github: https://github.com/Muhammad-Nabeel-Asif
 
 # Shown as "Source" in the footer once the repository is public. Leave empty to hide it.
-repository: ''
+repository: https://github.com/Muhammad-Nabeel-Asif/portfolio
 
 # File name inside public/. The download link only renders when the file exists.
 resumeFile: Muhammad-Nabeel-Asif-Resume.pdf
