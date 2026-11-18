@@ -113,12 +113,6 @@ const profile = await getProfile();
     rotate: 180deg;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme='light'])) .theme svg {
-      rotate: 180deg;
-    }
-  }
-
   /* On a phone the hero already lists every route, so the bar keeps only the way to reach me. */
   @media (max-width: 47.99rem) {
     .bar-nav li:not(:last-child) {

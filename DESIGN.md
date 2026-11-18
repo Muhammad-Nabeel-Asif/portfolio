@@ -34,6 +34,9 @@ large amber signal at the contact section. Reaching for the email address clears
 Colour means state and nothing else. The page is ink on a panel; a hue only appears where
 a signal would.
 
+The site opens in the day panel whatever the system setting is; the switch in the top bar
+turns on the night panel and remembers it.
+
 | Token | Day | Night | Why |
 |---|---|---|---|
 | `--panel` | `#ecefea` | `#0e1211` | The enamel of a signal-box diagram: a cool grey-green, kept away from cream paper and from navy. |

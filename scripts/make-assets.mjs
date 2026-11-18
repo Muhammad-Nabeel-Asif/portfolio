@@ -46,15 +46,16 @@ const preview = `<!doctype html><meta charset="utf-8"><style>${base}
   <p class="signal"><i class="lamp"></i><span>${escape(profile.contact.held)}</span></p>
 </main>`;
 
-const icon = (size) => `<!doctype html><meta charset="utf-8"><style>${base}
-  body { display: grid; place-items: center; }
-  svg { width: ${Math.round(size * 0.8)}px; height: ${Math.round(size * 0.8)}px; }
-</style>${readFileSync(join(root, 'public/favicon.svg'), 'utf8')}`;
+// The icon is the monogram from favicon.svg, drawn edge to edge so the tab shows a solid tile.
+const icon = () => `<!doctype html><meta charset="utf-8"><style>${base}
+  body { background: #101413; }
+  svg { display: block; width: 100vw; height: 100vh; }
+</style>${readFileSync(join(root, 'public/favicon.svg'), 'utf8').replace(' rx="5"', '')}`;
 
 const jobs = [
   { file: 'og.png', html: preview, width: 1200, height: 630 },
-  { file: 'apple-touch-icon.png', html: icon(180), width: 180, height: 180 },
-  { file: 'favicon-32.png', html: icon(32), width: 32, height: 32 },
+  { file: 'apple-touch-icon.png', html: icon(), width: 180, height: 180 },
+  { file: 'favicon-32.png', html: icon(), width: 32, height: 32 },
 ];
 
 const work = mkdtempSync(join(tmpdir(), 'portfolio-assets-'));

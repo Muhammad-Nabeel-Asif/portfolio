@@ -104,14 +104,13 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 <script>
   // Two small behaviours. Everything else on the page is HTML and CSS.
 
-  // 1. The theme switch. The saved choice is applied in <head> before first paint.
+  // 1. The theme switch. The page opens light; a saved switch to dark is applied in <head>.
   const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
   toggle?.addEventListener('click', () => {
     const root = document.documentElement;
-    const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
-    const current = root.dataset.theme ?? (systemDark ? 'dark' : 'light');
-    const next = current === 'dark' ? 'light' : 'dark';
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next;
+    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!.content = next === 'dark' ? '#0e1211' : '#ecefea';
     try {
       localStorage.setItem('theme', next);
     } catch {

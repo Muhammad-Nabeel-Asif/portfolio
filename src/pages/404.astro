@@ -38,12 +38,14 @@ const profile = await getProfile();
   const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
   toggle?.addEventListener('click', () => {
     const root = document.documentElement;
-    const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
-    const next = (root.dataset.theme ?? (systemDark ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark';
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next;
+    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!.content = next === 'dark' ? '#0e1211' : '#ecefea';
     try {
       localStorage.setItem('theme', next);
-    } catch {}
+    } catch {
+      // Private mode: the choice lasts for this page view only.
+    }
   });
 </script>
 
