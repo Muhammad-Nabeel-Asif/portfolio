@@ -49,6 +49,8 @@ const preview = new URL(url('og.png'), Astro.site);
     <link rel="preload" href={textFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={signFont} as="font" type="font/woff2" crossorigin />
 
+    <slot name="head" />
+
     <script is:inline>
       // Apply a saved theme before first paint. Without one, the system setting decides.
       try {

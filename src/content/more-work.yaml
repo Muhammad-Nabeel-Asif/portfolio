@@ -21,7 +21,7 @@
     and a ledger with a running balance for every customer. NestJS and MongoDB, deployed to
     AWS EC2 with GitHub Actions.
   link:
-    label: Source on GitHub
+    label: 'GitHub: saiban-backend'
     url: https://github.com/Muhammad-Nabeel-Asif/saiban-backend
 
 - id: ma-traders
@@ -32,7 +32,7 @@
     An offline point-of-sale desktop app for a wholesale distributor: invoices, stock, cash
     vouchers and ledgers. Money is stored as whole paisa, so totals never drift.
   link:
-    label: Source on GitHub
+    label: 'GitHub: ma-traders-pos'
     url: https://github.com/Muhammad-Nabeel-Asif/ma-traders-pos
 
 - id: bookmeet

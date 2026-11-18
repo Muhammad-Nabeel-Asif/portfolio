@@ -10,11 +10,26 @@ import MoreWork from '../components/MoreWork.astro';
 import Skills from '../components/Skills.astro';
 import TopBar from '../components/TopBar.astro';
 import Base from '../layouts/Base.astro';
+import { getProfile } from '../lib/site';
+
+const profile = await getProfile();
+
+// Structured data, so a search result can show who this is.
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role,
+  url: new URL(import.meta.env.BASE_URL, Astro.site).href,
+  address: { '@type': 'PostalAddress', addressLocality: 'Lahore', addressCountry: 'PK' },
+  sameAs: [profile.links.linkedin, profile.links.github],
+};
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
   <TopBar />
   <main id="main" class="wrap">
     <Hero />

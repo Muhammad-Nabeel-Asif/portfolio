@@ -79,14 +79,14 @@ const items = (await getCollection('moreWork')).sort((a, b) => a.data.order - b.
 
   @container (min-width: 56rem) {
     .more-item {
-      grid-template-columns: 15rem minmax(0, 1fr) 12rem;
+      grid-template-columns: 15rem minmax(0, 1fr) 14rem;
       gap: 2rem;
       align-items: start;
     }
 
     .more-link {
       justify-self: end;
-      min-height: 0;
+      margin-top: -0.6rem;
     }
   }
 </style>
